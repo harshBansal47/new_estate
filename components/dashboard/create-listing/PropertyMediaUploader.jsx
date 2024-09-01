@@ -5,83 +5,132 @@ import selectedFiles from "../../../utils/selectedFiles";
 import Image from "next/image";
 
 const PropertyMediaUploader = () => {
-  const [propertySelectedImgs, setPropertySelectedImgs] = useState([]);
+  const [brandImage, setBrandImage] = useState(null); // State for brand image
+  const [siteImages, setSiteImages] = useState([]); // State for site images
 
-  // multiple image select
-  const multipleImage = (e) => {
-    // checking is same file matched with old stored array
-    const isExist = propertySelectedImgs?.some((file1) =>
-      selectedFiles(e)?.some((file2) => file1.name === file2.name)
-    );
-
-    if (!isExist) {
-      setPropertySelectedImgs((old) => [...old, ...selectedFiles(e)]);
-    } else {
-      alert("You have selected one image already!");
+  // Handle brand image selection
+  const handleBrandImageChange = (e) => {
+    const files = selectedFiles(e);
+    if (files.length > 0) {
+      setBrandImage(files[0]); // Only one brand image allowed
     }
   };
 
-  // delete image
-  const deleteImage = (name) => {
-    const deleted = propertySelectedImgs?.filter((file) => file.name !== name);
-    setPropertySelectedImgs(deleted);
+  // Handle site images selection
+  const handleSiteImagesChange = (e) => {
+    const newFiles = selectedFiles(e);
+
+    // Filter out already selected images to avoid duplicates
+    const filteredNewFiles = newFiles.filter((newFile) =>
+      !siteImages.some((existingFile) => existingFile.name === newFile.name)
+    );
+
+    if (filteredNewFiles.length !== newFiles.length) {
+      alert("Some images have already been selected.");
+    }
+
+    setSiteImages((prev) => [...prev, ...filteredNewFiles]);
+  };
+
+  // Delete an image from site images
+  const deleteSiteImage = (name) => {
+    const updatedImages = siteImages.filter((file) => file.name !== name);
+    setSiteImages(updatedImages);
+  };
+
+  // Delete brand image
+  const deleteBrandImage = () => {
+    setBrandImage(null);
   };
 
   return (
     <div className="row">
       <div className="col-lg-12">
-        <ul className="mb-0">
-          {propertySelectedImgs.length > 0
-            ? propertySelectedImgs?.map((item, index) => (
-                <li key={index} className="list-inline-item">
-                  <div className="portfolio_item">
-                    <Image
-                      width={200}
-                      height={200}
-                      className="img-fluid cover"
-                      src={URL.createObjectURL(item)}
-                      alt="fp1.jpg"
-                    />
-                    <div
-                      className="edu_stats_list"
-                      data-bs-toggle="tooltip"
-                      data-bs-placement="top"
-                      title="Delete"
-                      data-original-title="Delete"
-                    >
-                      <a onClick={() => deleteImage(item.name)}>
-                        <span className="flaticon-garbage"></span>
-                      </a>
-                    </div>
-                  </div>
-                </li>
-              ))
-            : undefined}
-
-          {/* End li */}
-        </ul>
-      </div>
-      {/* End .col */}
-
-      <div className="col-lg-12">
+        {/* Display Brand Image */}
+        <h3>Brand Image</h3>
+        {brandImage && (
+          <div className="portfolio_item small-image">
+            <Image
+              width={100}  // Smaller width for brand image preview
+              height={100} // Smaller height for brand image preview
+              className="img-fluid cover"
+              src={URL.createObjectURL(brandImage)}
+              alt="Brand Image"
+            />
+            <div
+              className="edu_stats_list"
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              title="Delete"
+              onClick={deleteBrandImage}
+            >
+              <span className="flaticon-garbage"></span>
+            </div>
+          </div>
+        )}
+        {/* Brand Image Upload */}
         <div className="portfolio_upload">
           <input
             type="file"
-            onChange={multipleImage}
+            onChange={handleBrandImageChange}
+            accept="image/png, image/gif, image/jpeg"
+          />
+          <div className="icon">
+            <span className="flaticon-download"></span>
+          </div>
+          <p>Drag and drop brand image here</p>
+        </div>
+      </div>
+      {/* End Brand Image Section */}
+
+      <div className="col-lg-12">
+        {/* Display Site Images */}
+        <h3>Site Images</h3>
+        <ul className="mb-0">
+          {siteImages.length > 0 &&
+            siteImages.map((image, index) => (
+              <li key={index} className="list-inline-item">
+                <div className="portfolio_item small-image">
+                  <Image
+                    width={100}  // Smaller width for site image preview
+                    height={100} // Smaller height for site image preview
+                    className="img-fluid cover"
+                    src={URL.createObjectURL(image)}
+                    alt={`Site Image ${index + 1}`}
+                  />
+                  <div
+                    className="edu_stats_list"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="top"
+                    title="Delete"
+                    onClick={() => deleteSiteImage(image.name)}
+                  >
+                    <span className="flaticon-garbage"></span>
+                  </div>
+                </div>
+              </li>
+            ))}
+        </ul>
+
+        {/* Site Images Upload */}
+        <div className="portfolio_upload">
+          <input
+            type="file"
+            onChange={handleSiteImagesChange}
             multiple
             accept="image/png, image/gif, image/jpeg"
           />
           <div className="icon">
             <span className="flaticon-download"></span>
           </div>
-          <p>Drag and drop images here</p>
+          <p>Drag and drop site images here</p>
         </div>
       </div>
-      {/* End .col */}
+      {/* End Site Images Section */}
 
       <div className="col-xl-6">
         <div className="resume_uploader mb30">
-          <h3>Attachments</h3>
+          <h3>Brochure</h3>
           <form className="form-inline d-flex flex-wrap wrap">
             <input className="upload-path" />
             <label className="upload">
@@ -91,15 +140,7 @@ const PropertyMediaUploader = () => {
           </form>
         </div>
       </div>
-      {/* End .col */}
-
-      <div className="col-xl-12">
-        <div className="my_profile_setting_input">
-          <button className="btn btn1 float-start">Back</button>
-          <button className="btn btn2 float-end">Next</button>
-        </div>
-      </div>
-      {/* End .col */}
+      {/* End Brochure Section */}
     </div>
   );
 };
