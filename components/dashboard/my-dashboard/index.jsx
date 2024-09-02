@@ -63,21 +63,21 @@ const index = () => {
               </div>
               {/* End .row Dashboard top statistics */}
 
-              <div className="row">
+              {/* <div className="row">
                 <div className="col-xl-7">
                   <div className="application_statics">
                     <h4 className="mb-4">View Statistics</h4>
                     <StatisticsChart />
                   </div>
-                </div>
+                </div> */}
                 {/* End statistics chart */}
 
-                <div className="col-xl-5">
+                {/* <div className="col-xl-5">
                   <div className="recent_job_activity">
                     <h4 className="title mb-4">Recent Activities</h4>
                     <Activities />
                   </div>
-                </div>
+                </div> */}
               </div>
               {/* End .row  */}
 
@@ -92,7 +92,7 @@ const index = () => {
             </div>
             {/* End .col */}
           </div>
-        </div>
+        {/* </div> */}
       </section>
     </>
   );
