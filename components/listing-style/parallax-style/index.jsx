@@ -33,8 +33,7 @@ const index = () => {
                 <div className="home-text home6 text-center">
                   <h2 className="fz50 color-white">Enjoy The Finest Homes</h2>
                   <p className="fz18 color-white">
-                    From as low as $10 per day with limited time offer
-                    discounts.
+                
                   </p>
                 </div>
                 <GlobalHeroFilter className="mt30" />

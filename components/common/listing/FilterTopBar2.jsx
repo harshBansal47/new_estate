@@ -74,7 +74,7 @@ const FilterTopBar2 = () => {
               >
                 <option value="">Featured All</option>
                 <option value="sale">Sale</option>
-                <option value="rent">Rent</option>
+                {/* <option value="rent">Rent</option> */}
               </select>
             </li>
           </ul>

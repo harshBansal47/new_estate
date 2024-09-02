@@ -6,7 +6,7 @@ import Image from "next/image";
 const FavouritProducts = () => {
   let content = properties?.slice(0, 4)?.map((item) => (
     <div className="feat_property list favorite_page" key={item.id}>
-      <div className="thumb">
+      {/* <div className="thumb">
         <Image
           width={150}
           height={220}
@@ -21,7 +21,7 @@ const FavouritProducts = () => {
             </li>
           </ul>
         </div>
-      </div>
+      </div> */}
       {/* End .thumb */}
 
       <div className="details">
