@@ -11,6 +11,8 @@ if (typeof window !== "undefined") {
   require("bootstrap/dist/js/bootstrap");
 }
 
+
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en">

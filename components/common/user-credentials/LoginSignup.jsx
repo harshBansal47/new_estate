@@ -1,53 +1,122 @@
-"use client"
+"use client";
 import Image from "next/image";
 import Link from "next/link";
-import { closeModal } from "@/features/modal/modalSlice"; // Import the closeModal action correctly
+import { closeModal } from "@/features/modal/modalSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
-import { setLogin } from "@/features/login/loginSlice";
-import { setCredential,clearCredentials } from "@/features/login/authSlice";
+import { useState, useEffect } from "react";
+import { setLogin, logout } from "@/features/login/loginSlice";
+import { setCredential, clearCredentials } from "@/features/login/authSlice";
 
 const LoginSignup = () => {
   const dispatch = useDispatch();
+
+  // Select states from Redux store
   const isModalOpen = useSelector((state) => state.modal.isModalOpen);
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const user = useSelector((state) => state.auth.user);
+  const token = useSelector((state) => state.auth.token);
+  const expiresAt = useSelector((state) => state.auth.expiresAt);
 
-  const [credentials, setCredentials] = useState({ username: '', password: '' });
+  const [credentials, setCredentials] = useState({ username: "", password: "" });
 
+  // Handle input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setCredentials({
       ...credentials,
-      [name]: value
+      [name]: value,
     });
   };
 
+  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('/api/login', {
-        method: 'POST',
+      const response = await fetch("/api/login", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify(credentials)
+        body: JSON.stringify(credentials),
       });
       const data = await response.json();
       if (response.ok) {
-        dispatch(setCredential({
-          token: data.token, // Assuming the token is returned in the response
-          expiresAt: Date.now() + 1800000, // Token expiry time
-          user: data.credentials.username // Assuming the username is nested within credentials
+        const expiresAt = Date.now() + 1800000; // Token expiry time set to 30 minutes from now
+        dispatch(
+          setCredential({
+            token: data.token,  // Ensure this is the correct field
+            expiresAt,  // Save calculated expiry time
+            user: data.username, // Adjust if necessary
+          })
+        );
+        dispatch(closeModal());
+        dispatch(setLogin({
+          username: credentials.username,
+          isLoggedIn: true,
+          role: data.role
         }));
-        if (data.status === 'success') {
-          dispatch(closeModal());
-        }
       } else {
-        console.error(data.message || 'Authentication failed');
+        console.error(data.message || "Authentication failed");
+        // Display error feedback to user
       }
     } catch (error) {
-      console.error('Login failed:', error);
+      console.error("Login failed:", error);
     }
   };
+
+  // Handle modal close action
+  const handleModalClose = () => {
+    dispatch(closeModal());
+  };
+
+  // UseEffect to hydrate Redux state from localStorage on component mount
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const storedToken = localStorage.getItem("token");
+      const storedUser = localStorage.getItem("user");
+      const storedExpiresAt = localStorage.getItem("expiresAt");
+      const storedUsername = localStorage.getItem("username");
+      const storedRole = localStorage.getItem("role");
+      const storedIsLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+
+      if (storedToken && storedUser && storedExpiresAt && storedIsLoggedIn) {
+        const expiresAt = parseInt(storedExpiresAt, 10);
+        if (Date.now() < expiresAt) {
+          // Valid token, dispatch actions to hydrate Redux state
+          dispatch(setCredential({ token: storedToken, expiresAt, user: JSON.parse(storedUser) }));
+          dispatch(setLogin({ username: storedUsername, isLoggedIn: true, role: storedRole }));
+        } else {
+          // Token expired, clear stored credentials
+          dispatch(clearCredentials());
+          dispatch(logout());
+        }
+      } else {
+        // No valid session, clear Redux state
+        dispatch(clearCredentials());
+        dispatch(logout());
+      }
+    }
+  }, [dispatch]);
+
+  // Synchronize localStorage with authentication state
+  useEffect(() => {
+    if (isAuthenticated && token && user) {
+      localStorage.setItem("token", token);
+      localStorage.setItem("user", JSON.stringify(user));
+      localStorage.setItem("expiresAt", expiresAt.toString());
+      localStorage.setItem("username", user.username);
+      localStorage.setItem("role", user.role);
+      localStorage.setItem("isLoggedIn", "true");
+    } else {
+      // Clear localStorage if not authenticated
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      localStorage.removeItem("expiresAt");
+      localStorage.removeItem("username");
+      localStorage.removeItem("role");
+      localStorage.setItem("isLoggedIn", "false");
+    }
+  }, [isAuthenticated, token, user, expiresAt]);
 
   return (
     <div className="modal-content">
@@ -60,26 +129,16 @@ const LoginSignup = () => {
           onClick={handleModalClose}
         ></button>
       </div>
-      {/* End .modal-header */}
 
       <div className="modal-body container pb20">
         <div className="row">
           <div className="col-lg-12">
-            <ul className="sign_up_tab nav nav-tabs" id="myTab" role="tablist">
-              
-            </ul>
-            {/* End .sign_up_tab */}
+            <ul className="sign_up_tab nav nav-tabs" id="myTab" role="tablist"></ul>
           </div>
         </div>
-        {/* End .row */}
 
         <div className="tab-content container" id="myTabContent">
-          <div
-            className="row mt25 tab-pane fade show active"
-            id="home"
-            role="tabpanel"
-            aria-labelledby="home-tab"
-          >
+          <div className="row mt25 tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
             <div className="col-lg-6 col-xl-6">
               <div className="login_thumb">
                 <Image
@@ -91,15 +150,13 @@ const LoginSignup = () => {
                 />
               </div>
             </div>
-            {/* End col */}
 
             <div className="col-lg-6 col-xl-6">
               <div className="login_form">
-                <form  onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit}>
                   <div className="heading">
                     <h4>Login</h4>
                   </div>
-                 
 
                   <hr />
 
@@ -119,7 +176,6 @@ const LoginSignup = () => {
                       </div>
                     </div>
                   </div>
-                  {/* End input-group */}
 
                   <div className="input-group form-group">
                     <input
@@ -137,25 +193,16 @@ const LoginSignup = () => {
                       </div>
                     </div>
                   </div>
-                  {/* End input-group */}
-                  {/* End remember me checkbox */}
 
                   <button type="submit" className="btn btn-log w-100 btn-thm">
                     Log In
                   </button>
-                
                 </form>
               </div>
-             
             </div>
           </div>
-        
-          <div
-            className="row mt25 tab-pane fade"
-            id="profile"
-            role="tabpanel"
-            aria-labelledby="profile-tab"
-          >
+
+          <div className="row mt25 tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
             <div className="col-lg-6 col-xl-6">
               <div className="regstr_thumb">
                 <Image
@@ -167,15 +214,10 @@ const LoginSignup = () => {
                 />
               </div>
             </div>
-            {/* End . left side image for register */}
-
-                {/* End .form */}
-              </div>
-            </div>
-            {/* End register content */}
           </div>
-          {/* End .tab-pane */}
         </div>
+      </div>
+    </div>
   );
 };
 

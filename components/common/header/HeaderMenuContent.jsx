@@ -232,7 +232,6 @@ const HeaderMenuContent = ({ float = "" }) => {
     { id: 4, name: "LogIn", routerPath: "/login" },
     { id: 5, name: "Compare", routerPath: "/compare" },
     { id: 6, name: "Membership", routerPath: "/membership" },
-
     { id: 7, name: "Register", routerPath: "/register" },
     { id: 8, name: "Service", routerPath: "/service" },
     { id: 9, name: "404 Page", routerPath: "/404" },

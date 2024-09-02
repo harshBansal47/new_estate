@@ -1,21 +1,28 @@
-
 import { createSlice } from '@reduxjs/toolkit';
+
+// Define the initial state for login slice
+const initialState = {
+  username: '',
+  isLoggedIn: false,
+  role: ''
+};
 
 export const loginSlice = createSlice({
   name: 'login',
-  initialState: {
-    username: '',
-    isLoggedIn: false,
-    role:''
-  },
+  initialState,
   reducers: {
     setLogin: (state, action) => {
       state.username = action.payload.username;
-      state.isLoggedIn = action.payload.isLoggedIn;
+      state.isLoggedIn = true; // Directly set to true when login is successful
       state.role = action.payload.role;
+    },
+    logout: (state) => {
+      state.username = '';
+      state.isLoggedIn = false;
+      state.role = '';
     },
   },
 });
 
-export const { setLogin } = loginSlice.actions;
+export const { setLogin, logout } = loginSlice.actions;
 export default loginSlice.reducer;

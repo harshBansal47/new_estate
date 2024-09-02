@@ -1,13 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+// Initial state for auth slice
+const initialState = {
+  user: null,
+  token: null,
+  expiresAt:  null,
+  isAuthenticated: false, // Initialize based on token presence
+};
+
 export const authSlice = createSlice({
   name: 'auth',
-  initialState: {
-    user: null,
-    token: localStorage.getItem('token') || null,
-    expiresAt: localStorage.getItem('expiresAt') || null,
-    isAuthenticated: false,
-  },
+  initialState,
   reducers: {
     setCredential: (state, action) => {
       const { token, expiresAt, user } = action.payload;
@@ -15,16 +18,12 @@ export const authSlice = createSlice({
       state.token = token;
       state.expiresAt = expiresAt;
       state.isAuthenticated = true;
-      localStorage.setItem('token', token);
-      localStorage.setItem('expiresAt', expiresAt);
     },
     clearCredentials: (state) => {
       state.user = null;
       state.token = null;
       state.expiresAt = null;
       state.isAuthenticated = false;
-      localStorage.removeItem('token');
-      localStorage.removeItem('expiresAt');
     },
   },
 });
