@@ -9,14 +9,6 @@ import { setCredential, clearCredentials } from "@/features/login/authSlice";
 
 const LoginSignup = () => {
   const dispatch = useDispatch();
-
-  // Select states from Redux store
-  const isModalOpen = useSelector((state) => state.modal.isModalOpen);
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-  const user = useSelector((state) => state.auth.user);
-  const token = useSelector((state) => state.auth.token);
-  const expiresAt = useSelector((state) => state.auth.expiresAt);
-
   const [credentials, setCredentials] = useState({ username: "", password: "" });
 
   // Handle input changes
@@ -29,94 +21,66 @@ const LoginSignup = () => {
   };
 
   // Handle form submission
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await fetch("/api/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(credentials),
-      });
-      const data = await response.json();
-      if (response.ok) {
-        const expiresAt = Date.now() + 1800000; // Token expiry time set to 30 minutes from now
-        dispatch(
-          setCredential({
-            token: data.token,  // Ensure this is the correct field
-            expiresAt,  // Save calculated expiry time
-            user: data.username, // Adjust if necessary
-          })
-        );
-        dispatch(closeModal());
-        dispatch(setLogin({
-          username: credentials.username,
-          isLoggedIn: true,
-          role: data.role
-        }));
-      } else {
-        console.error(data.message || "Authentication failed");
-        // Display error feedback to user
-      }
-    } catch (error) {
-      console.error("Login failed:", error);
+  // Handle form submission
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  try {
+    const response = await fetch("/api/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(credentials),
+    });
+    const data = await response.json();
+    if (response.ok) {
+      const expiresAt = Date.now() + 1800000; // Token expiry time set to 30 minutes from now
+
+      // Dispatch credentials and login state to Redux
+      dispatch(setCredential({
+        token: data.token,
+        expiresAt,
+        user: data.username,
+      }));
+      dispatch(setLogin({
+        username: credentials.username,
+        isLoggedIn: true,
+        role: data.role
+      }));
+
+      // Sync to local storage
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("user", JSON.stringify(data.username));
+      localStorage.setItem("expiresAt", expiresAt.toString());
+      localStorage.setItem("username", credentials.username);
+      localStorage.setItem("role", data.role);
+      localStorage.setItem("isLoggedIn", "true");
+
+      dispatch(closeModal());
+    } else {
+      throw new Error(data.message || "Authentication failed");
     }
-  };
+  } catch (error) {
+    console.error("Login failed:", error);
+
+    // Clear Redux state and local storage upon failure
+    dispatch(clearCredentials());
+    dispatch(logout());
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    localStorage.removeItem("expiresAt");
+    localStorage.removeItem("username");
+    localStorage.removeItem("role");
+    localStorage.setItem("isLoggedIn", "false");
+  }
+};
+
 
   // Handle modal close action
   const handleModalClose = () => {
     dispatch(closeModal());
   };
 
-  // UseEffect to hydrate Redux state from localStorage on component mount
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const storedToken = localStorage.getItem("token");
-      const storedUser = localStorage.getItem("user");
-      const storedExpiresAt = localStorage.getItem("expiresAt");
-      const storedUsername = localStorage.getItem("username");
-      const storedRole = localStorage.getItem("role");
-      const storedIsLoggedIn = localStorage.getItem("isLoggedIn") === "true";
-
-      if (storedToken && storedUser && storedExpiresAt && storedIsLoggedIn) {
-        const expiresAt = parseInt(storedExpiresAt, 10);
-        if (Date.now() < expiresAt) {
-          // Valid token, dispatch actions to hydrate Redux state
-          dispatch(setCredential({ token: storedToken, expiresAt, user: JSON.parse(storedUser) }));
-          dispatch(setLogin({ username: storedUsername, isLoggedIn: true, role: storedRole }));
-        } else {
-          // Token expired, clear stored credentials
-          dispatch(clearCredentials());
-          dispatch(logout());
-        }
-      } else {
-        // No valid session, clear Redux state
-        dispatch(clearCredentials());
-        dispatch(logout());
-      }
-    }
-  }, [dispatch]);
-
-  // Synchronize localStorage with authentication state
-  useEffect(() => {
-    if (isAuthenticated && token && user) {
-      localStorage.setItem("token", token);
-      localStorage.setItem("user", JSON.stringify(user));
-      localStorage.setItem("expiresAt", expiresAt.toString());
-      localStorage.setItem("username", user.username);
-      localStorage.setItem("role", user.role);
-      localStorage.setItem("isLoggedIn", "true");
-    } else {
-      // Clear localStorage if not authenticated
-      localStorage.removeItem("token");
-      localStorage.removeItem("user");
-      localStorage.removeItem("expiresAt");
-      localStorage.removeItem("username");
-      localStorage.removeItem("role");
-      localStorage.setItem("isLoggedIn", "false");
-    }
-  }, [isAuthenticated, token, user, expiresAt]);
 
   return (
     <div className="modal-content">
