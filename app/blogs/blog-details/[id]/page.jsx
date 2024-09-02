@@ -1,19 +1,22 @@
 import dynamic from "next/dynamic";
 
-import BreadCrumb2 from "@/components/blog-details/BreadCrumb2";
-import Comments from "@/components/blog-details/Comments";
-import Pagination from "@/components/blog-details/Pagination";
-import Ratings from "@/components/blog-details/Ratings";
-import RelatedPost from "@/components/blog-details/RelatedPost";
-import ReviewBox from "@/components/blog-details/ReviewBox";
-import BlogSidebar from "@/components/common/blog/BlogSidebar";
-import CopyrightFooter from "@/components/common/footer/CopyrightFooter";
-import Footer from "@/components/common/footer/Footer";
-import Social from "@/components/common/footer/Social";
-import Header from "@/components/common/header/DefaultHeader";
-import MobileMenu from "@/components/common/header/MobileMenu";
-import PopupSignInUp from "@/components/common/PopupSignInUp";
-import blogs from "@/data/blogs";
+
+
+
+import BreadCrumb2 from "../../../../components/blog-details/BreadCrumb2";
+import Comments from "../../../../components/blog-details/Comments";
+import Pagination from "../../../../components/blog-details/Pagination";
+import Ratings from "../../../../components/blog-details/Ratings";
+import RelatedPost from "../../../../components/blog-details/RelatedPost";
+import ReviewBox from "../../../../components/blog-details/ReviewBox";
+import BlogSidebar from "../../../../components/common/blog/BlogSidebar";
+import CopyrightFooter from "../../../../components/common/footer/CopyrightFooter";
+import Footer from "../../../../components/common/footer/Footer";
+import Social from "../../../../components/common/footer/Social";
+import Header from "../../../../components/common/header/DefaultHeader";
+import MobileMenu from "../../../../components/common/header/MobileMenu";
+import PopupSignInUp from "../../../../components/common/PopupSignInUp";
+import blogs from "../../../../data/blogs";
 import Image from "next/image";
 
 export const metadata = {

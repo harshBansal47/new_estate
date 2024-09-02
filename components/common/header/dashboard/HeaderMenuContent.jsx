@@ -251,7 +251,7 @@ const HeaderMenuContent = ({ float = "" }) => {
     >
       <li className="dropitem">
         <a
-          href="#"
+          href="/"
           className={
             home.some((page) => page.routerPath?.split('/')[1] === pathname?.split('/')[1])
               ? "ui-active"
@@ -259,24 +259,11 @@ const HeaderMenuContent = ({ float = "" }) => {
           }
         >
           <span className="title">Home</span>
-          <span className="arrow"></span>
+     
         </a>
         {/* <!-- Level Two--> */}
 
-        <ul className="sub-menu ">
-          {home.map((item) => (
-            <li key={item.id}>
-              <Link
-                href={item.routerPath}
-                className={
-                  pathname?.split('/')[1] === item.routerPath?.split('/')[1] ? "ui-active" : undefined
-                }
-              >
-                {item.name}
-              </Link>
-            </li>
-          ))}
-        </ul>
+        
       </li>
       {/* End .dropitem */}
 
@@ -423,7 +410,7 @@ const HeaderMenuContent = ({ float = "" }) => {
 
       <li className="dropitem">
         <a
-          href="#"
+          href="/blogs"
           className={
             blog.some(
               (page) =>
@@ -435,25 +422,8 @@ const HeaderMenuContent = ({ float = "" }) => {
           }
         >
           <span className="title">Blog</span>
-          <span className="arrow"></span>
         </a>
-        <ul className="sub-menu ">
-          {blog.map((item) => (
-            <li key={item.id}>
-              <Link
-                href={item.routerPath}
-                className={
-                  pathname?.split('/')[1] === item.routerPath?.split('/')[1] 
-                  // item.routerPath + "/[id]" === pathname?.split('/')[1]
-                    ? "ui-active"
-                    : undefined
-                }
-              >
-                {item.name}
-              </Link>
-            </li>
-          ))}
-        </ul>
+       
       </li>
       {/* End .dropitem */}
 

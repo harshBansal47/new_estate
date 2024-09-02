@@ -1,17 +1,17 @@
-import CallToAction from "../common/CallToAction";
-import CopyrightFooter from "../common/footer/CopyrightFooter";
-import Footer from "../common/footer/Footer";
-import MobileMenu from "../common/header/MobileMenu";
-import Partners from "../common/Partners";
 import Blogs from "../common/Blogs";
+import GlobalHeroFilter from "../common/GlobalHeroFilter";
+import MobileMenu from "../common/header/MobileMenu";
 import FeaturedProperties from "./FeaturedProperties";
 import FindProperties from "./FindProperties";
 import Header from "./Header";
-import Hero from "./Hero";
-import WhyChoose from "../common/WhyChoose";
+import HeroSlider from "./HeroSlider";
+import LookingItem from "./LookingItem";
+import Team from "./Team";
+import CopyrightFooter from "../common/footer/CopyrightFooter";
+import Footer from "../common/footer/Footer";
 import PopupSignInUp from "../common/PopupSignInUp";
 
-const Index = () => {
+const index = () => {
   return (
     <>
       {/* <!-- Main Header Nav --> */}
@@ -23,21 +23,60 @@ const Index = () => {
       {/* <!-- Modal --> */}
       <PopupSignInUp />
 
-      {/* <!-- Home Design --> */}
-      <Hero />
+      {/* <!-- 4th Home Slider --> */}
+      <div className="home-four ">
+        <div className="container-fluid p0">
+          <div className="main-banner-wrapper">
+            <div className="arrow-style-2 banner-style-one ">
+              <HeroSlider />
+            </div>
+          </div>
+          {/* <!-- /.main-banner-wrapper --> */}
+        </div>
+        {/* End .container-fluid */}
 
-      {/* <!-- Feature Properties --> */}
-      <section id="feature-property" className="feature-property bgc-f7">
-        <div className="container">
+        <div className="container home_iconbox_container">
+          <div className="row posr">
+            <div className="col-lg-12">
+              <div className="home_content home4">
+                <div className="home-text text-center">
+                  <h2 className="fz55">Find Your Dream Home</h2>
+                  <p className="fz18 color-white">
+                    From as low as $10 per day with limited time offer
+                    discounts.
+                  </p>
+                </div>
+                <GlobalHeroFilter className="home4" />
+              </div>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-lg-12">
+              <h4 className="text-center color-white fw600 mb25 mb0-520">
+                What are you looking for?
+              </h4>
+              <ul className="home4_iconbox mb0">
+                <LookingItem />
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* <!-- Property Cities --> */}
+      <section id="best-property" className="best-property bgc-f7">
+        <div className="container ovh">
           <div className="row">
             <div className="col-lg-6 offset-lg-3">
               <div className="main-title text-center mb40">
                 <h2>Featured Properties</h2>
-                <p>Handpicked properties by our team.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
               </div>
             </div>
+          </div>
+          <div className="row">
             <div className="col-lg-12">
-              <div className="feature_property_slider gutter-x15">
+              <div className="best_property_slider gutter-x15">
                 <FeaturedProperties />
               </div>
             </div>
@@ -62,23 +101,6 @@ const Index = () => {
         </div>
       </section>
 
-      {/* <!-- Why Chose Us --> */}
-      <section id="why-chose" className="whychose_us bgc-f7 pb30">
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-6 offset-lg-3">
-              <div className="main-title text-center">
-                <h2>Why Choose Us</h2>
-                <p>We provide full service at every step.</p>
-              </div>
-            </div>
-          </div>
-          <div className="row">
-            <WhyChoose />
-          </div>
-        </div>
-      </section>
-
       {/* <!-- Our Blog --> */}
       <section className="our-blog bgc-f7 pb30">
         <div className="container">
@@ -96,27 +118,24 @@ const Index = () => {
         </div>
       </section>
 
-      {/* <!-- Our Partners --> */}
-      <section id="our-partners" className="our-partners">
+      {/* <!-- Our Team --> */}
+      <section className="our-team">
         <div className="container">
           <div className="row">
             <div className="col-lg-6 offset-lg-3">
               <div className="main-title text-center">
-                <h2>Our Partners</h2>
-                <p>We only work with the best companies around the globe</p>
+                <h2>Our Team</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
               </div>
             </div>
           </div>
           <div className="row">
-            <Partners />
+            <div className="col-lg-12">
+              <div className="team_slider gutter-x15">
+                <Team />
+              </div>
+            </div>
           </div>
-        </div>
-      </section>
-
-      {/* <!-- Start Call to Action --> */}
-      <section className="start-partners bgc-thm pt50 pb50">
-        <div className="container">
-          <CallToAction />
         </div>
       </section>
 
@@ -139,4 +158,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default index;

@@ -1,7 +1,8 @@
 'use client'
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-
+import { useDispatch, useSelector } from "react-redux";
+import { openModal } from "@/features/modal/modalSlice";
 
 const HeaderMenuContent = ({ float = "" }) => {
   const pathname = usePathname();
@@ -238,6 +239,10 @@ const HeaderMenuContent = ({ float = "" }) => {
     { id: 10, name: "Terms & Conditions", routerPath: "/terms" },
   ];
 
+
+  const dispatch = useDispatch();
+  const isModalOpen = useSelector((state) => state.modal.isModalOpen);
+  const { username, isLoggedIn, role } = useSelector((state) => state.login);
   return (
     <ul
       id="respMenu"
@@ -246,7 +251,7 @@ const HeaderMenuContent = ({ float = "" }) => {
     >
       <li className="dropitem">
         <a
-          href="#"
+          href="/"
           className={
             home.some((page) => page.routerPath?.split('/')[1] === pathname?.split('/')[1])
               ? "ui-active"
@@ -254,24 +259,8 @@ const HeaderMenuContent = ({ float = "" }) => {
           }
         >
           <span className="title">Home</span>
-          <span className="arrow"></span>
         </a>
         {/* <!-- Level Two--> */}
-
-        <ul className="sub-menu ">
-          {home.map((item) => (
-            <li key={item.id}>
-              <Link
-                href={item.routerPath}
-                className={
-                  pathname?.split('/')[1] === item.routerPath?.split('/')[1] ? "ui-active" : undefined
-                }
-              >
-                {item.name}
-              </Link>
-            </li>
-          ))}
-        </ul>
       </li>
       {/* End .dropitem */}
 
@@ -335,8 +324,8 @@ const HeaderMenuContent = ({ float = "" }) => {
             property.some((parent) => {
               return parent.items.some(
                 (page) =>
-                  page.routerPath?.split('/')[1] === pathname?.split('/')[1] 
-                  // page.routerPath?.split('/')[1] + "/[id]" === pathname?.split('/')[1]
+                  page.routerPath?.split('/')[1] === pathname?.split('/')[1]
+                // page.routerPath?.split('/')[1] + "/[id]" === pathname?.split('/')[1]
               );
             })
               ? "ui-active"
@@ -354,8 +343,8 @@ const HeaderMenuContent = ({ float = "" }) => {
                 className={
                   item.items.some(
                     (page) =>
-                      page.routerPath?.split('/')[1] === pathname?.split('/')[1] 
-                      // page.routerPath?.split('/')[1] + "/[id]" === pathname?.split('/')[1]
+                      page.routerPath?.split('/')[1] === pathname?.split('/')[1]
+                    // page.routerPath?.split('/')[1] + "/[id]" === pathname?.split('/')[1]
                   )
                     ? "ui-active"
                     : undefined
@@ -370,8 +359,8 @@ const HeaderMenuContent = ({ float = "" }) => {
                     <Link
                       href={val.routerPath}
                       className={
-                        pathname?.split('/')[1] === val.routerPath?.split('/')[1] 
-                        // val.routerPath + "/[id]" === pathname?.split('/')[1]
+                        pathname?.split('/')[1] === val.routerPath?.split('/')[1]
+                          // val.routerPath + "/[id]" === pathname?.split('/')[1]
                           ? "ui-active"
                           : undefined
                       }
@@ -418,37 +407,19 @@ const HeaderMenuContent = ({ float = "" }) => {
 
       <li className="dropitem">
         <a
-          href="#"
+          href="/blogs"
           className={
             blog.some(
               (page) =>
-                page.routerPath?.split('/')[1] === pathname?.split('/')[1] 
-                // page.routerPath?.split('/')[1] + "/[id]" === pathname?.split('/')[1]
+                page.routerPath?.split('/')[1] === pathname?.split('/')[1]
+              // page.routerPath?.split('/')[1] + "/[id]" === pathname?.split('/')[1]
             )
               ? "ui-active"
               : undefined
           }
         >
           <span className="title">Blog</span>
-          <span className="arrow"></span>
         </a>
-        <ul className="sub-menu ">
-          {blog.map((item) => (
-            <li key={item.id}>
-              <Link
-                href={item.routerPath}
-                className={
-                  pathname?.split('/')[1] === item.routerPath?.split('/')[1]
-                  // item.routerPath + "/[id]" === pathname?.split('/')[1]
-                    ? "ui-active"
-                    : undefined
-                }
-              >
-                {item.name}
-              </Link>
-            </li>
-          ))}
-        </ul>
       </li>
       {/* End .dropitem */}
 
@@ -462,16 +433,27 @@ const HeaderMenuContent = ({ float = "" }) => {
       </li>
       {/* End .dropitem */}
 
-      <li className={`list-inline-item list_s ${float}`}>
-        <a
-          href="#"
-          className="btn flaticon-user"
-          data-bs-toggle="modal"
-          data-bs-target=".bd-example-modal-lg"
-        >
-          <span className="dn-lg">Login/Register</span>
-        </a>
-      </li>
+      {
+        isLoggedIn ? (
+          <div className="btn  flexbox" >
+            <div className="user-button">
+              <div className="user-avatar">{username[0].toUpperCase()}</div>
+              <div className="username">{username}</div>
+            </div>
+
+          </div>
+        ) : (<li className={`list-inline-item list_s`}>
+          <button
+            className="btn flaticon-user"
+            // data-bs-toggle="modal"
+            data-bs-target=".bd-example-modal-lg"
+            onClick={() => { if (isModalOpen === false) { dispatch(openModal()) } }}
+          >
+            <span className="dn-lg">Login/Register</span>
+          </button>
+        </li>
+        )
+      }
       {/* End .dropitem */}
 
       <li className={`list-inline-item add_listing ${float}`}>

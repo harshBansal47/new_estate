@@ -22,7 +22,7 @@ const Header = () => {
 
   return (
     <header
-      className={`header-nav menu_style_home_one navbar-scrolltofixed stricky main-menu  ${
+      className={`header-nav menu_style_home_one  navbar-scrolltofixed stricky main-menu  ${
         navbar ? "stricky-fixed " : ""
       }`}
     >
@@ -33,14 +33,14 @@ const Header = () => {
           <Image
             width={40}
             height={45}
-            className="logo1 contain"
+            className="logo1 img-fluid"
             src="/assets/images/header-logo.png"
             alt="header-logo.png"
           />
           <Image
             width={40}
             height={45}
-            className="logo2 contain"
+            className="logo2 img-fluid"
             src="/assets/images/header-logo2.png"
             alt="header-logo2.png"
           />

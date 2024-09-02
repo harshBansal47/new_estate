@@ -3,7 +3,7 @@
 
 import { Provider } from "react-redux";
 import { store } from "../store/store";
-import ScrollToTop from "@/components/common/ScrollTop";
+import ScrollToTop from "../components/common/ScrollTop";
 import "../public/assets/scss/index.scss";
 
 if (typeof window !== "undefined") {

@@ -1,8 +1,11 @@
-import { configureStore } from "@reduxjs/toolkit";
-import agentSlice from "../features/agent/agentSlice";
-import { api } from "../features/api/api";
-import filterSlice from "../features/filter/filterSlice";
-import propertiesSlice from "../features/properties/propertiesSlice";
+// src/app/store.js
+import { configureStore } from '@reduxjs/toolkit';
+import modalReducer from '../features/modal/modalSlice';
+import agentSlice from '../features/agent/agentSlice';
+import filterSlice from '../features/filter/filterSlice';
+import propertiesSlice from '../features/properties/propertiesSlice';
+import { api } from '../features/api/api';
+import loginreducer from '../features/login/loginSlice'
 
 export const store = configureStore({
     reducer: {
@@ -10,6 +13,8 @@ export const store = configureStore({
         properties: propertiesSlice,
         filter: filterSlice,
         agent: agentSlice,
+        modal: modalReducer, 
+        login:loginreducer // Ensure modalReducer is correctly imported and assigned
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware().concat(api.middleware),

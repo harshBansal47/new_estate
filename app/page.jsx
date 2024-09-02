@@ -1,17 +1,20 @@
-import Wrapper from "@/components/layout/Wrapper";
-import HomeMain from './(homes)/home-1/page'
-
+import dynamic from "next/dynamic";
+import HomeMain from "../components/home";
+import Wrapper from "../components/layout/Wrapper";
 export const metadata = {
-  title: 'Home-1 || FindHouse - Real Estate React Template',
+  title: 'Home-4 || FindHouse - Real Estate React Template',
   description:
     'FindHouse - Real Estate React Template',
 }
 
-export default function Home() {
+const index = () => {
   return (
+    <>
     <Wrapper>
-      <HomeMain/>
+      <HomeMain />  
     </Wrapper>
-    
-  )
-}
+    </>
+  );
+};
+
+export default dynamic(() => Promise.resolve(index), { ssr: false });

@@ -1,7 +1,51 @@
+"use client"
 import Image from "next/image";
 import Link from "next/link";
+import { closeModal } from "@/features/modal/modalSlice"; // Import the closeModal action correctly
+import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
+import { setLogin } from "@/features/login/loginSlice";
 
 const LoginSignup = () => {
+  const dispatch = useDispatch();
+  // Corrected useSelector to fetch isModalOpen from the modal state slice
+  const isModalOpen = useSelector((state) => state.modal.isModalOpen);
+
+    // Function to close the modal by dispatching the closeModal action
+    const handleModalClose = () => {
+      dispatch(closeModal());
+    };
+
+    const [credentials, setCredentials] = useState({ username: '', password: '' });
+
+    const handleChange = (e) => {
+      const { name, value } = e.target;
+      setCredentials({
+        ...credentials,
+        [name]: value
+      });
+    };
+
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+      try {
+        const response = await fetch('/api/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(credentials)
+        });
+        const data = await response.json();
+        if (data.status==='success') {
+          dispatch(setLogin({ username: credentials.username, isLoggedIn: true ,role:data.role}));
+          dispatch(closeModal())
+        }
+      } catch (error) {
+        console.error('Login failed:', error);
+      }
+    };
+
   return (
     <div className="modal-content">
       <div className="modal-header">
@@ -10,6 +54,7 @@ const LoginSignup = () => {
           data-bs-dismiss="modal"
           aria-label="Close"
           className="btn-close"
+          onClick={handleModalClose}
         ></button>
       </div>
       {/* End .modal-header */}
@@ -18,7 +63,7 @@ const LoginSignup = () => {
         <div className="row">
           <div className="col-lg-12">
             <ul className="sign_up_tab nav nav-tabs" id="myTab" role="tablist">
-              <li className="nav-item">
+              {/* <li className="nav-item">
                 <a
                   className="nav-link active"
                   id="home-tab"
@@ -30,10 +75,10 @@ const LoginSignup = () => {
                 >
                   Login
                 </a>
-              </li>
+              </li> */}
               {/* End login tab */}
 
-              <li className="nav-item">
+              {/* <li className="nav-item">
                 <a
                   className="nav-link"
                   id="profile-tab"
@@ -45,7 +90,7 @@ const LoginSignup = () => {
                 >
                   Register
                 </a>
-              </li>
+              </li> */}
               {/* End Register tab */}
             </ul>
             {/* End .sign_up_tab */}
@@ -75,13 +120,13 @@ const LoginSignup = () => {
 
             <div className="col-lg-6 col-xl-6">
               <div className="login_form">
-                <form action="#">
+                <form  onSubmit={handleSubmit}>
                   <div className="heading">
                     <h4>Login</h4>
                   </div>
                   {/* End heading */}
 
-                  <div className="row mt25">
+                  {/* <div className="row mt25">
                     <div className="col-lg-12">
                       <button type="submit" className="btn btn-fb w-100">
                         <i className="fa fa-facebook float-start mt5"></i> Login
@@ -94,7 +139,7 @@ const LoginSignup = () => {
                         with Google
                       </button>
                     </div>
-                  </div>
+                  </div> */}
                   {/* End .row */}
 
                   <hr />
@@ -104,7 +149,10 @@ const LoginSignup = () => {
                       type="text"
                       className="form-control"
                       id="inlineFormInputGroupUsername2"
-                      placeholder="User Name Or Email"
+                      placeholder="User Name"
+                      name="username"
+                      value={credentials.username}
+                      onChange={handleChange}
                     />
                     <div className="input-group-prepend">
                       <div className="input-group-text">
@@ -120,6 +168,9 @@ const LoginSignup = () => {
                       className="form-control"
                       id="exampleInputPassword1"
                       placeholder="Password"
+                      value={credentials.password}
+                      onChange={handleChange}
+                      name="password"
                     />
                     <div className="input-group-prepend">
                       <div className="input-group-text">
@@ -128,25 +179,6 @@ const LoginSignup = () => {
                     </div>
                   </div>
                   {/* End input-group */}
-
-                  <div className="form-group form-check custom-checkbox mb-3">
-                    <input
-                      className="form-check-input"
-                      type="checkbox"
-                      value=""
-                      id="remeberMe"
-                    />
-                    <label
-                      className="form-check-label form-check-label"
-                      htmlFor="remeberMe"
-                    >
-                      Remember me
-                    </label>
-
-                    <a className="btn-fpswd float-end" href="#">
-                      Lost your password?
-                    </a>
-                  </div>
                   {/* End remember me checkbox */}
 
                   <button type="submit" className="btn btn-log w-100 btn-thm">
@@ -154,12 +186,12 @@ const LoginSignup = () => {
                   </button>
                   {/* End submit button */}
 
-                  <p className="text-center">
+                  {/* <p className="text-center">
                     Dont have an account?{" "}
                     <a className="text-thm" href="#">
                       Register
                     </a>
-                  </p>
+                  </p> */}
                 </form>
               </div>
               {/* End .col .login_form */}
@@ -186,14 +218,14 @@ const LoginSignup = () => {
             </div>
             {/* End . left side image for register */}
 
-            <div className="col-lg-6 col-xl-6">
+            {/* <div className="col-lg-6 col-xl-6">
               <div className="sign_up_form">
                 <div className="heading">
                   <h4>Register</h4>
                 </div>
-                {/* End .heading */}
+                End .heading */}
 
-                <form action="#">
+                {/* <form action="#">
                   <div className="row ">
                     <div className="col-lg-12">
                       <button type="submit" className="btn btn-fb w-100">
@@ -210,7 +242,7 @@ const LoginSignup = () => {
                   </div>
                   {/* End .row */}
 
-                  <hr />
+                  {/* <hr />
 
                   <div className="form-group input-group mb-3">
                     <input
@@ -227,7 +259,7 @@ const LoginSignup = () => {
                   </div>
                   {/* End .row */}
 
-                  <div className="form-group input-group  mb-3">
+                  {/* <div className="form-group input-group  mb-3">
                     <input
                       type="email"
                       className="form-control"
@@ -239,10 +271,10 @@ const LoginSignup = () => {
                         <i className="fa fa-envelope-o"></i>
                       </div>
                     </div>
-                  </div>
+                  </div> */}
                   {/* End .row */}
 
-                  <div className="form-group input-group  mb-3">
+                  {/* <div className="form-group input-group  mb-3">
                     <input
                       type="password"
                       className="form-control"
@@ -254,10 +286,10 @@ const LoginSignup = () => {
                         <i className="flaticon-password"></i>
                       </div>
                     </div>
-                  </div>
+                  </div> */} 
                   {/* End .row */}
 
-                  <div className="form-group input-group  mb-3">
+                  {/* <div className="form-group input-group  mb-3">
                     <input
                       type="password"
                       className="form-control"
@@ -269,10 +301,10 @@ const LoginSignup = () => {
                         <i className="flaticon-password"></i>
                       </div>
                     </div>
-                  </div>
+                  </div> */}
                   {/* End .row */}
 
-                  <div className="form-group ui_kit_select_search mb-3">
+                  {/* <div className="form-group ui_kit_select_search mb-3">
                     <select
                       className="form-select"
                       data-live-search="true"
@@ -282,10 +314,10 @@ const LoginSignup = () => {
                       <option data-tokens="Agent/Agency">Agent</option>
                       <option data-tokens="SingleUser">Multi User</option>
                     </select>
-                  </div>
+                  </div> */}
                   {/* End from-group */}
 
-                  <div className="form-group form-check custom-checkbox mb-3">
+                  {/* <div className="form-group form-check custom-checkbox mb-3">
                     <input
                       className="form-check-input"
                       type="checkbox"
@@ -298,21 +330,21 @@ const LoginSignup = () => {
                     >
                       I have accept the Terms and Privacy Policy.
                     </label>
-                  </div>
+                  </div> */}
                   {/* End from-group */}
-
+{/* 
                   <button type="submit" className="btn btn-log w-100 btn-thm">
                     Sign Up
-                  </button>
+                  </button> */}
                   {/* End btn */}
-
+{/* 
                   <p className="text-center">
                     Already have an account?{" "}
                     <a className="text-thm" href="#">
                       Log In
                     </a>
                   </p>
-                </form>
+                </form>  */}
                 {/* End .form */}
               </div>
             </div>
@@ -320,8 +352,6 @@ const LoginSignup = () => {
           </div>
           {/* End .tab-pane */}
         </div>
-      </div>
-    </div>
   );
 };
 
