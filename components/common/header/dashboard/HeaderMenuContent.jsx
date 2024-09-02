@@ -6,10 +6,12 @@ import Link from "next/link";
 import MyAccount from "./MyAccount";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import { useSelector } from "react-redux";
 
 const HeaderMenuContent = ({ float = "" }) => {
 
-  const pathname = usePathname()
+  const pathname = usePathname();
+  const { username, isLoggedIn, role } = useSelector((state) => state.login);
 
   const home = [
     {
@@ -440,14 +442,12 @@ const HeaderMenuContent = ({ float = "" }) => {
       <li className="user_setting">
         <div className="dropdown">
           <a className="btn dropdown-toggle" href="#" data-bs-toggle="dropdown">
-            <Image
-              width={45}
-              height={45}
-              className="rounded-circle"
-              src="/assets/images/team/e1.png"
-              alt="e1.png"
-            />
-            <span className="dn-1199 ms-1">Ali Tufan</span>
+          <div className="btn  flexbox" >
+            <div className="user-button">
+              <div className="user-avatar">{username[0].toUpperCase()}</div>
+              <div className="username">{username}</div>
+            </div>
+          </div>
           </a>
           <div className="dropdown-menu">
             <MyAccount />

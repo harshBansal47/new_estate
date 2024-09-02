@@ -456,12 +456,20 @@ const HeaderMenuContent = ({ float = "" }) => {
       }
       {/* End .dropitem */}
 
-      <li className={`list-inline-item add_listing ${float}`}>
-        <Link href="/create-listing">
-          <span className="flaticon-plus"></span>
-          <span className="dn-lg"> Create Listing</span>
-        </Link>
-      </li>
+
+      {
+  (isLoggedIn && (role === "manager" || role === "admin")) && (
+    <li className={`list-inline-item add_listing ${float}`}>
+      <Link href="/create-listing">
+        <span className="flaticon-plus"></span>
+        <span className="dn-lg"> Create Listing</span>
+      </Link>
+    </li>
+  )
+}
+
+
+      
       {/* End .dropitem */}
     </ul>
   );

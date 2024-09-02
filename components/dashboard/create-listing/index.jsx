@@ -7,6 +7,7 @@ import SidebarMenu from "../../common/header/dashboard/SidebarMenu";
 import MobileMenu from "../../common/header/MobileMenu";
 import Image from "next/image";
 import "leaflet/dist/leaflet.css";
+import { useSelector } from "react-redux";
 
 
 const index = () => {
@@ -22,11 +23,10 @@ const index = () => {
         setMarker(event.latlng);
       },
     });
-  
+
     return null;
   };
-  
-
+  const { username, isLoggedIn, role } = useSelector((state) => state.login);
 
   // State variables for form fields
   const [marker, setMarker] = useState(null);
@@ -210,39 +210,75 @@ const index = () => {
   };
 
   // Handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const parsedPropertyPrice = parseInt(propertyPrice.toString().replace(/,/g, ''));
+    // Check user permissions
+    if (!isLoggedIn || (role !== "admin" && role !== "manager")) {
+      alert("You do not have permission to create a property.");
+      return;
+    }
 
+    // Prepare FormData for submission
+    const formData = new FormData();
+    formData.append('propertyTitle', propertyTitle);
+    formData.append('propertyDescription', propertyDescription);
+    formData.append('propertyType', propertyType);
+    formData.append('propertyStatus', propertyStatus);
+    formData.append('propertyPrice', propertyPrice.replace(/,/g, '')); // format and append price
+    formData.append('propertyArea', propertyArea);
+    formData.append('propertyLocality', propertyLocality);
+    formData.append('propertyCity', propertyCity);
+    formData.append('propertyZip', propertyZip);
+    formData.append('reraId', reraId);
+    formData.append('builderName', builderName);
+    formData.append('latitude', marker ? marker.lat : '');
+    formData.append('longitude', marker ? marker.lng : '');
 
-    const formData = {
-      propertyTitle,
-      propertyDescription,
-      propertyType,
-      propertyStatus,
-      propertyPrice: parsedPropertyPrice, // Use the parsed value here
-      propertyArea,
-      propertyLocality,
-      propertyCity,
-      propertyZip,
-      reraId,
-      builderName,
-      planPrice,
-      planSize,
-      planDescription,
-      brandImage,
-      brochure,
-      siteImages,
-      highlights,
-      amenities,
-      imageUpload,
-      sitePlans
-    };
+    if (brandImage) {
+      formData.append('brandImage', brandImage);
+    }
 
-    console.log("Form Data Submitted:", formData);
-    // Add form submission logic here (e.g., send to an API)
+    siteImages.forEach((image, index) => {
+      formData.append(`siteImages[${index}]`, image);
+    });
+
+    if (brochure) {
+      formData.append('brochure', brochure);
+    }
+
+    sitePlans.forEach((plan, index) => {
+      formData.append(`sitePlans[${index}][planPrice]`, plan.planPrice);
+      formData.append(`sitePlans[${index}][planSize]`, plan.planSize);
+      formData.append(`sitePlans[${index}][planDescription]`, plan.planDescription);
+      if (plan.imageUpload) {
+        formData.append(`sitePlans[${index}][imageUpload]`, plan.imageUpload);
+      }
+    });
+
+    try {
+      const response = await fetch('/api/properties', {
+        method: 'POST',
+        body: formData, // Send formData instead of JSON
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      if (data.status === 'success') {
+        alert("Property created successfully!");
+        // Reset form or redirect as needed
+      } else {
+        alert(`Error: ${data.message || 'Failed to create property.'}`);
+      }
+    } catch (error) {
+      console.error('Property creation failed:', error);
+      alert('An error occurred while creating the property. Please try again later.');
+    }
   };
+
+
 
 
   // Functions to manage highlights
@@ -400,6 +436,7 @@ const index = () => {
                               id="formGroupExamplePrice"
                               onChange={handleInputChange}
                               value={formatNumberWithCommas(propertyPrice)}
+                              placeholder="onwards /-"
                             />
                           </div>
                         </div>
@@ -412,6 +449,7 @@ const index = () => {
                               type="text"
                               className="form-control"
                               id="formGroupExampleArea"
+                              placeholder="sq ft"
                               onChange={handleInputChange}
                               value={propertyArea}
                             />
@@ -454,26 +492,26 @@ const index = () => {
                         {/* End .col */}
 
                         <div className="col-lg-12">
-                    {/* Leaflet Map */}
-                    <MapContainer
-                      center={[28.4469, 77.0790]} // Default center position
-                      zoom={13}
-                      style={{ height: "450px", width: "100%" }}
-                    >
-                      <TileLayer
-                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                      />
-                      <LocationMarker setMarker={setMarker} />
-                      {marker && <Marker position={marker} />}
-                    </MapContainer>
-                  </div>
+                          {/* Leaflet Map */}
+                          <MapContainer
+                            center={[28.4469, 77.0790]} // Default center position
+                            zoom={13}
+                            style={{ height: "450px", width: "100%", zIndex: '0' }}
+                          >
+                            <TileLayer
+                              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                            />
+                            <LocationMarker setMarker={setMarker} />
+                            {marker && <Marker position={marker} />}
+                          </MapContainer>
+                        </div>
 
-                  {/* Display the selected latitude and longitude */}
-                  <div className="col-lg-12 mt-3">
-                    <p>Selected Latitude: {marker?.lat}</p>
-                    <p>Selected Longitude: {marker?.lng}</p>
-                  </div>
+                        {/* Display the selected latitude and longitude */}
+                        <div className="col-lg-12 mt-3">
+                          <p>Selected Latitude: {marker?.lat}</p>
+                          <p>Selected Longitude: {marker?.lng}</p>
+                        </div>
                       </div>
                     </div>
                     <div className="my_dashboard_review mt30">
@@ -658,7 +696,7 @@ const index = () => {
                               readOnly
                               value={brochure ? brochure.name : "No file chosen"}  // Display the file name
                             />
-                            <label className="upload">
+                            <label className="upload" style={{ margin: "5px" }}>
                               <input
                                 type="file"
                                 id="brochure"  // Add this id

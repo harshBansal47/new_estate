@@ -5,6 +5,7 @@ import { Provider } from "react-redux";
 import { store } from "../store/store";
 import ScrollToTop from "../components/common/ScrollTop";
 import "../public/assets/scss/index.scss";
+import "./global.css";
 
 if (typeof window !== "undefined") {
   require("bootstrap/dist/js/bootstrap");
