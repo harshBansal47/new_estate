@@ -2,13 +2,15 @@ import Image from "next/image";
 import properties from "../../../data/properties";
 
 const TableData = () => {
+  // Updated headers, removed "View"
   let theadConent = [
     "Listing Title",
     "Date published",
     "Status",
-    "View",
     "Action",
   ];
+
+  // Updated table body content to exclude view data
   let tbodyContent = properties?.slice(0, 4)?.map((item) => (
     <tr key={item.id}>
       <td scope="row">
@@ -54,9 +56,6 @@ const TableData = () => {
       </td>
       {/* End td */}
 
-      <td>2,345</td>
-      {/* End td */}
-
       <td>
         <ul className="view_edit_delete_list mb0">
           <li
@@ -99,7 +98,7 @@ const TableData = () => {
             ))}
           </tr>
         </thead>
-        {/* End theaad */}
+        {/* End thead */}
 
         <tbody>{tbodyContent}</tbody>
       </table>

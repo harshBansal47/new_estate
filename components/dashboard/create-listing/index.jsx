@@ -148,6 +148,19 @@ const index = () => {
     }
   };
 
+  const convertToBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file);
+      fileReader.onload = () => {
+        resolve(fileReader.result);
+      };
+      fileReader.onerror = (error) => {
+        reject(error);
+      };
+    });
+  };
+
 
   const handleFileChange = (e, index = null) => {
     const { files, id } = e.target;
@@ -212,63 +225,58 @@ const index = () => {
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     // Check user permissions
     if (!isLoggedIn || (role !== "admin" && role !== "manager")) {
       alert("You do not have permission to create a property.");
       return;
     }
-
-    // Prepare FormData for submission
-    const formData = new FormData();
-    formData.append('propertyTitle', propertyTitle);
-    formData.append('propertyDescription', propertyDescription);
-    formData.append('propertyType', propertyType);
-    formData.append('propertyStatus', propertyStatus);
-    formData.append('propertyPrice', propertyPrice.replace(/,/g, '')); // format and append price
-    formData.append('propertyArea', propertyArea);
-    formData.append('propertyLocality', propertyLocality);
-    formData.append('propertyCity', propertyCity);
-    formData.append('propertyZip', propertyZip);
-    formData.append('reraId', reraId);
-    formData.append('builderName', builderName);
-    formData.append('latitude', marker ? marker.lat : '');
-    formData.append('longitude', marker ? marker.lng : '');
-
-    if (brandImage) {
-      formData.append('brandImage', brandImage);
-    }
-
-    siteImages.forEach((image, index) => {
-      formData.append(`siteImages[${index}]`, image);
-    });
-
-    if (brochure) {
-      formData.append('brochure', brochure);
-    }
-
-    sitePlans.forEach((plan, index) => {
-      formData.append(`sitePlans[${index}][planPrice]`, plan.planPrice);
-      formData.append(`sitePlans[${index}][planSize]`, plan.planSize);
-      formData.append(`sitePlans[${index}][planDescription]`, plan.planDescription);
-      if (plan.imageUpload) {
-        formData.append(`sitePlans[${index}][imageUpload]`, plan.imageUpload);
-      }
-    });
-
+  
+    // Prepare the JSON payload
+    const jsonPayload = {
+      propertyTitle,
+      propertyDescription,
+      propertyType,
+      propertyStatus,
+      propertyPrice: propertyPrice.replace(/,/g, ''),
+      propertyArea,
+      propertyLocality,
+      propertyCity,
+      propertyZip,
+      reraId,
+      builderName,
+      locationMap:{
+        latitude: marker ? marker.lat : '',
+      longitude: marker ? marker.lng : '',
+      },
+      amenities: Object.keys(amenities).filter(key => amenities[key]),
+      highlights,
+      sitePlans: await Promise.all(sitePlans.map(async (plan) => ({
+        ...plan,
+        imageUpload: plan.imageUpload ? await convertToBase64(plan.imageUpload) : null,
+      }))),
+      brandImage: brandImage ? await convertToBase64(brandImage) : null,
+      siteImages: await Promise.all(siteImages.map(file => convertToBase64(file))),
+      brochure: brochure ? await convertToBase64(brochure) : null,
+    };
+  
+  
     try {
       const response = await fetch('/api/properties', {
         method: 'POST',
-        body: formData, // Send formData instead of JSON
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(jsonPayload),
       });
-
+  
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
+  
       const data = await response.json();
       if (data.status === 'success') {
         alert("Property created successfully!");
-        // Reset form or redirect as needed
       } else {
         alert(`Error: ${data.message || 'Failed to create property.'}`);
       }
@@ -277,9 +285,6 @@ const index = () => {
       alert('An error occurred while creating the property. Please try again later.');
     }
   };
-
-
-
 
   // Functions to manage highlights
   const addHighlight = () => {
@@ -397,7 +402,7 @@ const index = () => {
 
                               <option data-tokens="type1">Commercial</option>
                               <option data-tokens="Type2">Plot</option>
-                              <option data-tokens="Type3">Residencial</option>
+                              <option data-tokens="Type3">Residential</option>
                               <option data-tokens="Type4">Industrial</option>
                               <option data-tokens="Type5">Rental</option>
                             </select>
