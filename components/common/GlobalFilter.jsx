@@ -1,8 +1,11 @@
 "use client"
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { addPropertiesCityWise } from '@/features/properties/propertyslice';
 
 
 const GlobalFilter = ({ className = "" }) => {
+  const dispatch = useDispatch();
 
 
   // State hooks for keyword and city
@@ -17,7 +20,6 @@ const GlobalFilter = ({ className = "" }) => {
       return;
     }
 
-
     setError('');
 
     try {
@@ -28,7 +30,7 @@ const GlobalFilter = ({ className = "" }) => {
         }
       );
       const data = await response.json();
-      console.log(data);
+      dispatch(addPropertiesCityWise({ data: data.data, city: city }))
 
     } catch (error) {
       console.error('Failed to fetch:', error);

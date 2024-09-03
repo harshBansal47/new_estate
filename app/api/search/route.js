@@ -2,8 +2,10 @@
 
 export async function GET(req, res) {
     try {
+        const SERVER_URL = process.env.Backend_URL;
+
         // Parse the request URL to extract query parameters
-        const { searchParams } = new URL(req.url, `http://${req.headers.host}`);
+        const { searchParams } = new URL(req.url, SERVER_URL);
 
         const city = searchParams.get('city');
         const keyword = searchParams.get('keyword');
@@ -21,8 +23,6 @@ export async function GET(req, res) {
             method: 'GET', // Adjust this as per your backend method
             headers: {
                 'Content-Type': 'application/json',
-                // Include other headers as needed, for example:
-                // 'Authorization': 'Bearer your_access_token',
             }
         });
 
