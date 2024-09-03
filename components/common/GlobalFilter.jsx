@@ -1,23 +1,47 @@
-'use client'
+"use client"
+import React, { useState } from 'react';
 
-import {
-  addKeyword,
-  addLocation,
-} from "../../features/properties/propertiesSlice";
-import PricingRangeSlider from "./PricingRangeSlider";
-import CheckBoxFilter from "./CheckBoxFilter";
-import GlobalSelectBox from "./GlobalSelectBox";
-import { useRouter } from "next/navigation";
 
 const GlobalFilter = ({ className = "" }) => {
-  const router = useRouter()
-  // submit handler
-  const submitHandler = () => {
-    router.push("/listing-grid-v1");
+
+
+  // State hooks for keyword and city
+  const [keyword, setKeyword] = useState('');
+  const [city, setCity] = useState('');
+  const [error, setError] = useState('');
+
+  // Submit handler
+  const submitHandler = async () => {
+    if (!keyword || !city) {
+      alert('Please enter both keyword and city.');
+      return;
+    }
+
+
+    setError('');
+
+    try {
+      const response = await fetch(`/api/search?city=${city}&keyword=${keyword}`,
+        {
+          "method": 'GET', // GET is the default method, so this line can be omitted if you prefer
+          'Content-Type': 'application/json',
+        }
+      );
+      const data = await response.json();
+      console.log(data);
+
+    } catch (error) {
+      console.error('Failed to fetch:', error);
+      setError('Failed to perform search');
+    } finally {
+
+    }
   };
 
   return (
     <div className={`home1-advnc-search ${className}`}>
+
+      {error && <p>Error: {error}</p>}
       <ul className="h1ads_1st_list mb0">
         <li className="list-inline-item">
           <div className="form-group">
@@ -25,103 +49,28 @@ const GlobalFilter = ({ className = "" }) => {
               type="text"
               className="form-control"
               placeholder="Enter keyword..."
-              onChange={(e) => dispatch(addKeyword(e.target.value))}
+              value={keyword}
+              onChange={(e) => setKeyword(e.target.value)}
             />
           </div>
         </li>
-        {/* End li */}
 
         <li className="list-inline-item">
           <div className="search_option_two">
             <div className="candidate_revew_select">
-              <select className="selectpicker w100 form-select show-tick">
-                <option value="">Property Type</option>
-                <option>Apartment</option>
-                <option>Bungalow</option>
-                <option>Condo</option>
-                <option>House</option>
-                <option>Land</option>
-                <option>Single Family</option>
+              <select
+                className="selectpicker w100 form-select show-tick"
+                value={city}
+                onChange={(e) => setCity(e.target.value)}
+              >
+                <option value="">Select City</option>
+                <option value="Gurugram">Gurugram</option>
+                <option value="Noida">Noida</option>
+                <option value="Gr. Noida">Gr. Noida</option>
               </select>
             </div>
           </div>
         </li>
-        {/* End li */}
-
-        <li className="list-inline-item">
-          <div className="form-group">
-            <input
-              type="text"
-              className="form-control"
-              placeholder="Location"
-              onChange={(e) => dispatch(addLocation(e.target.value))}
-            />
-            <label>
-              <span className="flaticon-maps-and-flags"></span>
-            </label>
-          </div>
-        </li>
-        {/* End li */}
-
-        <li className="list-inline-item">
-          <div className="small_dropdown2">
-            <div
-              id="prncgs"
-              className="btn dd_btn"
-              data-bs-toggle="dropdown"
-              data-bs-auto-close="outside"
-              aria-expanded="false"
-            >
-              <span>Price</span>
-              <label htmlFor="InputEmail2">
-                <span className="fa fa-angle-down"></span>
-              </label>
-            </div>
-            <div className="dd_content2 dropdown-menu">
-              <div className="pricing_acontent">
-                <PricingRangeSlider />
-              </div>
-            </div>
-          </div>
-        </li>
-        {/* End li */}
-
-        <li className="custome_fields_520 list-inline-item">
-          <div className="navbered">
-            <div className="mega-dropdown ">
-              <span
-                className="dropbtn"
-                data-bs-toggle="dropdown"
-                data-bs-auto-close="outside"
-                aria-expanded="false"
-              >
-                Advanced <i className="flaticon-more pl10 flr-520"></i>
-              </span>
-
-              <div className="dropdown-content dropdown-menu ">
-                <div className="row p15">
-                  <div className="col-lg-12">
-                    <h4 className="text-thm3 mb-4">Amenities</h4>
-                  </div>
-
-                  <CheckBoxFilter />
-                </div>
-                {/* End .row */}
-
-                <div className="row p15 pt0-xsd">
-                  <div className="col-lg-12 col-xl-12">
-                    <ul className="apeartment_area_list mb0">
-                      <GlobalSelectBox />
-                    </ul>
-                  </div>
-                </div>
-                {/* End .row */}
-              </div>
-              {/* End .dropdown-menu */}
-            </div>
-          </div>
-        </li>
-        {/* End li */}
 
         <li className="list-inline-item">
           <div className="search_option_button">
@@ -134,7 +83,6 @@ const GlobalFilter = ({ className = "" }) => {
             </button>
           </div>
         </li>
-        {/* End li */}
       </ul>
     </div>
   );

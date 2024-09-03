@@ -32,9 +32,9 @@ const index = () => {
             {/* End .col */}
 
             <div className="col-md-4 col-lg-6">
-              <div className="sidebar_switch text-right mobile-filter-menu">
+              {/* <div className="sidebar_switch text-right mobile-filter-menu">
                 <ShowFilter />
-              </div>
+              </div> */}
               {/* ENd button for mobile sidebar show  */}
             </div>
             {/* End .col filter grid list */}
@@ -44,9 +44,9 @@ const index = () => {
           <div className="row">
             <div className="col-md-12">
               <div className="grid_list_search_result ">
-                <div className="row align-items-center">
+                {/* <div className="row align-items-center">
                   <FilterTopBar />
-                </div>
+                </div> */}
               </div>
               {/* End .row */}
 
@@ -58,7 +58,7 @@ const index = () => {
               <div className="row">
                 <div className="col-lg-12 mt20">
                   <div className="mbp_pagination">
-                    <Pagination />
+                    {/* <Pagination /> */}
                   </div>
                 </div>
                 {/* End paginaion .col */}
