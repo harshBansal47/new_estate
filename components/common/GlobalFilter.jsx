@@ -35,7 +35,7 @@ const GlobalFilter = ({ className = "" }) => {
           <div className="search_option_two">
             <div className="candidate_revew_select">
               <select className="selectpicker w100 form-select show-tick">
-                <option value="">Property Type</option>
+                <option value="">Select City</option>
                 <option>Apartment</option>
                 <option>Bungalow</option>
                 <option>Condo</option>
@@ -48,7 +48,7 @@ const GlobalFilter = ({ className = "" }) => {
         </li>
         {/* End li */}
 
-        <li className="list-inline-item">
+        {/* <li className="list-inline-item">
           <div className="form-group">
             <input
               type="text"
@@ -60,10 +60,10 @@ const GlobalFilter = ({ className = "" }) => {
               <span className="flaticon-maps-and-flags"></span>
             </label>
           </div>
-        </li>
+        </li> */}
         {/* End li */}
 
-        <li className="list-inline-item">
+        {/* <li className="list-inline-item">
           <div className="small_dropdown2">
             <div
               id="prncgs"
@@ -83,10 +83,10 @@ const GlobalFilter = ({ className = "" }) => {
               </div>
             </div>
           </div>
-        </li>
+        </li> */}
         {/* End li */}
 
-        <li className="custome_fields_520 list-inline-item">
+        {/* <li className="custome_fields_520 list-inline-item">
           <div className="navbered">
             <div className="mega-dropdown ">
               <span
@@ -106,7 +106,7 @@ const GlobalFilter = ({ className = "" }) => {
 
                   <CheckBoxFilter />
                 </div>
-                {/* End .row */}
+              
 
                 <div className="row p15 pt0-xsd">
                   <div className="col-lg-12 col-xl-12">
@@ -115,12 +115,12 @@ const GlobalFilter = ({ className = "" }) => {
                     </ul>
                   </div>
                 </div>
-                {/* End .row */}
+               
               </div>
-              {/* End .dropdown-menu */}
+              
             </div>
           </div>
-        </li>
+        </li> */}
         {/* End li */}
 
         <li className="list-inline-item">

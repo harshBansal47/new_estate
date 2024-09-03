@@ -42,37 +42,37 @@ const index = () => {
   const handlePropEdit = (id) => {
 
   }
-  const handlePropDelete = async (id) => {
-    // Confirm before deleting
+  // const handlePropDelete = async (id) => {
+  //   // Confirm before deleting
 
 
-    try {
-      // Construct the URL properly using template literals to include the `id`
-      const response = await fetch(`/api/properties/delete/${id}`, {
-        method: 'DELETE', // Using the DELETE method
-        headers: {
-          'Content-Type': 'application/json',
-          // Include other headers as needed, e.g., Authorization for secure endpoints
-        }
-      });
+  //   try {
+  //     // Construct the URL properly using template literals to include the `id`
+  //     const response = await fetch(`/api/properties/delete/${id}`, {
+  //       method: 'DELETE', // Using the DELETE method
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         // Include other headers as needed, e.g., Authorization for secure endpoints
+  //       }
+  //     });
 
-      const data = await response.json(); // Assuming the server responds with JSON
+  //     const data = await response.json(); // Assuming the server responds with JSON
 
-      if (!response.ok) {
-        // If the server responds with an error status, throw an error to handle it
-        throw new Error(data.message || 'Failed to delete the property');
-      }
+  //     if (!response.ok) {
+  //       // If the server responds with an error status, throw an error to handle it
+  //       throw new Error(data.message || 'Failed to delete the property');
+  //     }
 
-      // Here, handle UI update or state management logic upon successful deletion
-      alert('Property deleted successfully');
-      // Example: if you're managing state with React, you might want to filter out the deleted property
-      // setProperties(prevProperties => prevProperties.filter(property => property.id !== id));
-    } catch (error) {
-      // Handle any errors that occur during the fetch
-      console.error('Failed to delete property:', error);
-      alert(`Error: ${error.message}`);
-    }
-  }
+  //     // Here, handle UI update or state management logic upon successful deletion
+  //     alert('Property deleted successfully');
+  //     // Example: if you're managing state with React, you might want to filter out the deleted property
+  //     // setProperties(prevProperties => prevProperties.filter(property => property.id !== id));
+  //   } catch (error) {
+  //     // Handle any errors that occur during the fetch
+  //     console.error('Failed to delete property:', error);
+  //     alert(`Error: ${error.message}`);
+  //   }
+  // }
 
 
 
@@ -193,18 +193,18 @@ const index = () => {
                                 <td>
                                   <ul className="view_edit_delete_list mb0">
                                     <li className="list-inline-item" data-toggle="tooltip" data-placement="top" title="Edit">
-                                      <Button onClick={() => handlePropEdit(item._id)}> {/* Changed onclick to onClick and added arrow function */}
+                                      <button onClick={() => handlePropEdit(item._id)} style={{border:'0'}}> {/* Changed onclick to onClick and added arrow function */}
                                         <a href="#">
                                           <span className="flaticon-edit"></span>
                                         </a>
-                                      </Button>
+                                      </button>
                                     </li>
                                     <li className="list-inline-item" data-toggle="tooltip" data-placement="top" title="Delete">
-                                      <Button onClick={() => handlePropDelete(item._id)}> {/* Changed onclick to onClick and added arrow function */}
+                                      <button onClick={() => handlePropDelete(item._id)}> {/* Changed onclick to onClick and added arrow function */}
                                         <a href="#">
                                           <span className="flaticon-garbage"></span>
                                         </a>
-                                      </Button>
+                                      </button>
                                     </li>
                                   </ul>
 
