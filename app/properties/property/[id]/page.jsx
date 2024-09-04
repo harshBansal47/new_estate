@@ -1,4 +1,4 @@
-
+"use client"
 
 import "photoswipe/dist/photoswipe.css";
 import CopyrightFooter from "@/components/common/footer/CopyrightFooter";
@@ -10,11 +10,15 @@ import properties from "@/data/properties";
 import DetailsContent from "@/components/listing-details-v1/DetailsContent";
 import Sidebar from "@/components/listing-details-v1/Sidebar";
 import ListingOne from "@/components/listing-single/ListingOne";
+import { useDispatch, useSelector } from "react-redux";
 
 const ListingDynamicDetailsV1 = ({params}) => {
- 
+
   const id = params.id;
-  const property = properties?.find((item) => item.id == id) || properties[0]
+  const dispatch = useDispatch();
+
+  const property = useSelector(state=>state.property.data);
+  // const property = properties?.find((item) => item.id == id) || properties[0]
 
   return (
     <>
@@ -29,7 +33,7 @@ const ListingDynamicDetailsV1 = ({params}) => {
 
       {/* <!-- Listing Single Property --> */}
       <ListingOne property={property} />
-    
+
 
       {/* <!-- Agent Single Grid View --> */}
       <section className="our-agent-single bgc-f7 pb30-991">
