@@ -1,5 +1,5 @@
 "use client"
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -11,40 +11,72 @@ import Footer from "../../common/footer/Footer";
 import CopyrightFooter from "../../common/footer/CopyrightFooter";
 
 const Index = () => {
-  const properties = useSelector((state) => state.property.data);
-  const logger = ()=>{
-    console.log(properties)
-  }
+  const reduxProperties = useSelector((state) => state.property.data);
+  const isSearchQuery = reduxProperties?.city?.length > 0;
 
-  useEffect(()=>{
-    logger();
-  },[])
+  const [properties, setProperties] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('/api/properties/GetAll', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+        const data = await response.json();
+        if (data.status === "success") {
+          setProperties(data.data);
+        } else {
+          throw new Error("Failed to fetch properties");
+        }
+      } catch (error) {
+        console.error('Failed to fetch properties:', error);
+        // Optionally, update the UI to show an error message
+      }
+    };
+
+    fetchData();
+
+    // Assuming you need to reset the properties based on a specific condition:
+    if (!isSearchQuery) {
+      setProperties(reduxProperties.data || []);
+    }
+  }, [isSearchQuery, reduxProperties.data]);
+
   return (
     <>
-      <Header/>
-      <MobileMenu/>
-      <PopupSignInUp/>
+      <Header />
+      <MobileMenu />
+      <PopupSignInUp />
 
       <section className="our-listing bgc-f7 pb30-991 mt85 md-mt0">
         <div className="container">
           <div className="row">
             <div className="col-md-8 col-lg-6">
-              <BreadCrumb2/>
+              <BreadCrumb2 />
             </div>
           </div>
 
           <div className="row">
-            
-            {properties && properties.data.map((property) => (
+            {properties.map((property) => (
               <div className="col-md-6 col-lg-4" key={property._id}>
                 <div className="feat_property home7 style4">
                   <div className="thumb">
-                    <Image
+                    {/* <Image
                       width={342}
                       height={220}
                       src={property.brandImage}
                       alt={property.propertyTitle}
-                    />
+                    /> */}
+                    {property.brandImage && <Image
+                                        width={150}
+                                        height={220}
+                                        className="img-whp cover"
+                                        src={property.brandImage}
+                                        alt="fp1.jpg"
+                                      />}
                     <div className="thmb_cntnt">
                       <ul className="icon mb0">
                         <li className="list-inline-item">
@@ -87,8 +119,8 @@ const Index = () => {
         </div>
       </section>
 
-     {/* <!-- Our Footer --> */}
-     <section className="footer_one">
+      {/* Our Footer */}
+      <section className="footer_one">
         <div className="container">
           <div className="row">
             <Footer />
@@ -96,7 +128,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* <!-- Our Footer Bottom Area --> */}
+      {/* Our Footer Bottom Area */}
       <section className="footer_middle_area pt40 pb40">
         <div className="container">
           <CopyrightFooter />
