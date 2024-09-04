@@ -2,11 +2,11 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { addPropertiesCityWise } from '@/features/properties/propertyslice';
-
+import { useRouter } from 'next/navigation';
 
 const GlobalFilter = ({ className = "" }) => {
   const dispatch = useDispatch();
-
+  const router = useRouter();
 
   // State hooks for keyword and city
   const [keyword, setKeyword] = useState('');
@@ -30,13 +30,13 @@ const GlobalFilter = ({ className = "" }) => {
         }
       );
       const data = await response.json();
+      console.log("Data fetched Successfully");
       dispatch(addPropertiesCityWise({ data: data.data, city: city }))
-
+      router.push('/properties');
     } catch (error) {
       console.error('Failed to fetch:', error);
       setError('Failed to perform search');
     } finally {
-
     }
   };
 

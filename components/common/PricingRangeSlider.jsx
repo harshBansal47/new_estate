@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import InputRange from "react-input-range";
 import { useDispatch } from "react-redux";
-import { addPrice } from "../../features/properties/propertiesSlice";
+// import { addPrice } from "../../features/properties/propertiesSlice";
 
 const RangeSlider = () => {
   const [price, setPrice] = useState({ value: { min: 10000, max: 20000 } });
@@ -15,14 +15,14 @@ const RangeSlider = () => {
   };
 
   // price add to state
-  useEffect(() => {
-    dispath(
-      addPrice({
-        min: price.value.min,
-        max: price.value.max,
-      })
-    );
-  }, [dispath, price]);
+  // useEffect(() => {
+  //   dispath(
+  //     addPrice({
+  //       min: price.value.min,
+  //       max: price.value.max,
+  //     })
+  //   );
+  // }, [dispath, price]);
 
   return (
     <div className="nft__filter-price tp-range-slider tp-range-slider-dark mb-20">

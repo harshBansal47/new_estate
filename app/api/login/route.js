@@ -1,6 +1,3 @@
-
-
-
 export async function POST(req, res) {
   if (req.method === 'POST') {
     try {
@@ -10,8 +7,10 @@ export async function POST(req, res) {
         const streamData = await reader.read();
         if (streamData.done) {
           console.log("No data in stream");
-          res.status(400).json({ message: 'No data provided' });
-          return;
+          return new Response(JSON.stringify({ message: 'No data provided' }), {
+            status: 400,
+            headers: { 'Content-Type': 'application/json' }
+          });
         }
         
         // Convert the stream into text
@@ -47,18 +46,27 @@ export async function POST(req, res) {
           },
           status: 200,
           statusText: 'OK'
-        })
+        });
 
       } else {
         console.log('Unexpected request body type');
-        res.status(400).json({ message: 'Invalid request body' });
+        return new Response(JSON.stringify({ message: 'Invalid request body' }), {
+          status: 400,
+          headers: { 'Content-Type': 'application/json' }
+        });
       }
     } catch (error) {
       console.error('Failed to fetch from the Express server:', error);
-      res.status(500).json({ message: 'Internal server error' });
+      return new Response(JSON.stringify({ message: 'Internal server error' }), {
+        status: 500,
+        headers: { 'Content-Type': 'application/json' }
+      });
     }
   } else {
     // Handle any non-POST requests
-    res.status(405).send(`Method ${req.method} Not Allowed`);
+    return new Response(`Method ${req.method} Not Allowed`, {
+      status: 405,
+      statusText: 'Method Not Allowed'
+    });
   }
 }

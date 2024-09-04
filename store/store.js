@@ -3,7 +3,6 @@ import { configureStore } from '@reduxjs/toolkit';
 import modalReducer from '../features/modal/modalSlice';
 import agentSlice from '../features/agent/agentSlice';
 import filterSlice from '../features/filter/filterSlice';
-import propertiesSlice from '../features/properties/propertiesSlice';
 import { api } from '../features/api/api';
 import loginreducer from '../features/login/loginSlice'
 import authreducer from '../features/login/authSlice'
@@ -12,7 +11,6 @@ import propertyreducer from '@/features/properties/propertyslice';
 export const store = configureStore({
     reducer: {
         [api.reducerPath]: api.reducer,
-        properties: propertiesSlice,
         filter: filterSlice,
         agent: agentSlice,
         modal: modalReducer, 
