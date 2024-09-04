@@ -5,7 +5,7 @@ import { closeModal } from "@/features/modal/modalSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import { setLogin, logout } from "@/features/login/loginSlice";
-import { setCredential, clearCredentials } from "@/features/login/authSlice";
+
 
 const LoginSignup = () => {
   const dispatch = useDispatch();
@@ -20,8 +20,6 @@ const LoginSignup = () => {
     });
   };
 
-  // Handle form submission
-  // Handle form submission
 const handleSubmit = async (e) => {
   e.preventDefault();
   try {
@@ -33,54 +31,32 @@ const handleSubmit = async (e) => {
       body: JSON.stringify(credentials),
     });
     const data = await response.json();
-    if (response.ok) {
-      const expiresAt = Date.now() + 1800000; // Token expiry time set to 30 minutes from now
-
+    if (response.ok && data.status === "success") {
       // Dispatch credentials and login state to Redux
-      dispatch(setCredential({
-        token: data.token,
-        expiresAt,
-        user: data.username,
-      }));
+      const {role,token} = data;
+
       dispatch(setLogin({
-        username: credentials.username,
-        isLoggedIn: true,
-        role: data.role
+        token: token,
+        username:credentials.username,
+        isLoggedIn:true,
+        role:role
       }));
 
-      // Sync to local storage
-      localStorage.setItem("token", data.token);
-      localStorage.setItem("user", JSON.stringify(data.username));
-      localStorage.setItem("expiresAt", expiresAt.toString());
-      localStorage.setItem("username", credentials.username);
-      localStorage.setItem("role", data.role);
-      localStorage.setItem("isLoggedIn", "true");
-
+      localStorage.setItem("token",token);
       dispatch(closeModal());
     } else {
       throw new Error(data.message || "Authentication failed");
     }
   } catch (error) {
     console.error("Login failed:", error);
-
-    // Clear Redux state and local storage upon failure
-    dispatch(clearCredentials());
     dispatch(logout());
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    localStorage.removeItem("expiresAt");
-    localStorage.removeItem("username");
-    localStorage.removeItem("role");
-    localStorage.setItem("isLoggedIn", "false");
   }
 };
-
 
   // Handle modal close action
   const handleModalClose = () => {
     dispatch(closeModal());
   };
-
 
   return (
     <div className="modal-content">

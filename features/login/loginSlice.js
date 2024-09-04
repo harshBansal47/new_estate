@@ -4,7 +4,8 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   username: '',
   isLoggedIn: false,
-  role: ''
+  role: '',
+  token:'',
 };
 
 export const loginSlice = createSlice({
@@ -15,6 +16,7 @@ export const loginSlice = createSlice({
       state.username = action.payload.username;
       state.isLoggedIn = true; // Directly set to true when login is successful
       state.role = action.payload.role;
+      state.token = action.payload.token;
     },
     logout: (state) => {
       state.username = '';
