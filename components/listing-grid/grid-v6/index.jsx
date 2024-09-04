@@ -13,7 +13,6 @@ import CopyrightFooter from "../../common/footer/CopyrightFooter";
 const Index = () => {
   const reduxProperties = useSelector((state) => state.property.data);
   const isSearchQuery = reduxProperties?.city?.length > 0;
-
   const [properties, setProperties] = useState([]);
 
   useEffect(() => {
@@ -50,7 +49,6 @@ const Index = () => {
       <Header />
       <MobileMenu />
       <PopupSignInUp />
-
       <section className="our-listing bgc-f7 pb30-991 mt85 md-mt0">
         <div className="container">
           <div className="row">
@@ -58,18 +56,12 @@ const Index = () => {
               <BreadCrumb2 />
             </div>
           </div>
-
           <div className="row">
             {properties.map((property) => (
               <div className="col-md-6 col-lg-4" key={property._id}>
                 <div className="feat_property home7 style4">
+                <Link href={`/properties/property/${property._id}`}>
                   <div className="thumb">
-                    {/* <Image
-                      width={342}
-                      height={220}
-                      src={property.brandImage}
-                      alt={property.propertyTitle}
-                    /> */}
                     {property.brandImage && <Image
                                         width={150}
                                         height={220}
@@ -112,6 +104,7 @@ const Index = () => {
                       <div className="fp_pdate float-end">{new Date(property.createdAt).toLocaleDateString()}</div>
                     </div>
                   </div>
+                  </Link>
                 </div>
               </div>
             ))}
