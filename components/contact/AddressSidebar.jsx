@@ -2,36 +2,37 @@ import Social from "../common/footer/Social";
 
 const AddressSidebar = () => {
   return (
-    <div className="contact_localtion">
+    <div className="contact_location">
       <h4>Contact Us</h4>
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In gravida quis
-        libero eleifend ornare. habitasse platea dictumst.
+        If you have any questions or need assistance with our properties in Ghaziabad, our team is here to help. Feel free to reach out to us through any of the following contact methods.
       </p>
       <div className="content_list">
         <h5>Address</h5>
         <p>
-          2301 Ravenswood Rd Madison, <br />
-          WI 53711
+          5th Floor, Pacific Business Park, <br />
+          Sahibabad Industrial Area Site 4, <br />
+          Ghaziabad, Uttar Pradesh 201010, India
         </p>
       </div>
       <div className="content_list">
         <h5>Phone</h5>
-        <p>(315) 905-2321</p>
+        <p>+91 98765 43210</p>
       </div>
       <div className="content_list">
-        <h5>Mail</h5>
-        <p>info@findhouse.com</p>
+        <h5>Email</h5>
+        <p>info@findhouse.in</p>
       </div>
       <div className="content_list">
         <h5>Skype</h5>
-        <p>findhouse.com</p>
+        <p>findhouse.in</p>
       </div>
       <h5>Follow Us</h5>
       <ul className="contact_form_social_area">
         <Social />
       </ul>
     </div>
+
   );
 };
 

@@ -6,46 +6,29 @@ const OurMission = () => {
     {
       id: 1,
       icon: "flaticon-user",
-      number: "80,123",
-      meta: "Customers to date",
+      number: "User Friendly",
+      meta: "Provide complete support to customer",
     },
     {
       id: 2,
       icon: "flaticon-home",
-      number: "$74 Billion",
-      meta: "In home sales",
+      number: "Best Home Deals",
+      meta: "Flexiblity in home sales",
     },
     {
       id: 3,
       icon: "flaticon-transfer",
-      number: "$468 Million",
-      meta: "In Savings",
+      number: "Pocket Friendly",
+      meta: "Ensure your savings",
     },
   ];
 
   return (
     <>
-      <div className="col-lg-8 col-xl-7">
+      <div className="col-lg-8 col-xl-7" style={{margin:"auto"}}>
         <div className="about_content">
-          <p className="large">
-            Mauris ac consectetur ante, dapibus gravida tellus. Nullam aliquet
-            eleifend dapibus. Cras sagittis, ex euismod lacinia tempor.
-          </p>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
-            quis ligula eu lectus vulputate porttitor sed feugiat nunc. Mauris
-            ac consectetur ante, dapibus gravida tellus. Nullam aliquet eleifend
-            dapibus. Cras sagittis, ex euismod lacinia tempor, lectus orci
-            elementum augue, eget auctor metus ante sit amet velit.
-          </p>
-          <p>
-            Maecenas quis viverra metus, et efficitur ligula. Nam congue augue
-            et ex congue, sed luctus lectus congue. Integer convallis
-            condimentum sem. Duis elementum tortor eget condimentum tempor.
-            Praesent sollicitudin lectus ut pharetra pulvinar. Donec et libero
-            ligula. Vivamus semper at orci at placerat.Placeat Lorem ipsum dolor
-            sit amet, consectetur adipisicing elit. Quod libero amet, laborum
-            qui nulla quae alias tempora.
+          At Real Estate Deals, our mission is to connect people with their dream properties by offering a comprehensive and transparent platform for exploring commercial and residential spaces. We aim to simplify the property search process by providing detailed, up-to-date information about every property in our portfolio. Our goal is to empower you to make informed decisions with confidence, whether you’re looking to invest, relocate, or expand your business. We are committed to fostering trust and reliability in the real estate market, ensuring that every transaction is a seamless experience for all parties involved.
           </p>
 
           <ul className="ab_counting">
@@ -68,19 +51,19 @@ const OurMission = () => {
       </div>
       {/* End .col */}
 
-      <div className="col-lg-4 col-xl-5">
+      {/* <div className="col-lg-4 col-xl-5">
         <div className="about_thumb">
-          <Image
+          {/* <Image
             width={461}
             height={509}
             priority
             className="img-fluid w100 cover"
             src="/assets/images/about/1.jpg"
             alt="1.jpg"
-          />
-          <PopupVideo />
-        </div>
-      </div>
+          /> */}
+          {/* <PopupVideo /> */}
+        {/* </div>
+      </div> */} 
     </>
   );
 };

@@ -32,7 +32,7 @@ const index = () => {
           <div className="row">
             <div className="col-lg-6 offset-lg-3">
               <div className="main-title text-center">
-                <h2 className="mt0">Our Mission Is To FindHouse</h2>
+                <h2 className="mt0">Our Mission</h2>
               </div>
             </div>
           </div>
@@ -67,14 +67,14 @@ const index = () => {
             <div className="col-lg-6 offset-lg-3">
               <div className="main-title text-center">
                 <h2>Our Team</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        
               </div>
             </div>
           </div>
           <div className="row">
             <div className="col-lg-12">
               <div className="team_slider gutter-x15">
-                <Team />
+                {/* <Team /> */}
               </div>
             </div>
           </div>
@@ -114,17 +114,17 @@ const index = () => {
             </div>
           </div>
           <div className="row">
-            <Partners />
+            {/* <Partners /> */}
           </div>
         </div>
       </section>
 
       {/* <!-- Start Call to Action --> */}
-      <section className="start-partners bgc-thm pt50 pb50">
+      {/* <section className="start-partners bgc-thm pt50 pb50">
         <div className="container">
           <CallToAction />
         </div>
-      </section>
+      </section> */}
 
       {/* <!-- Our Footer --> */}
       <section className="footer_one">
