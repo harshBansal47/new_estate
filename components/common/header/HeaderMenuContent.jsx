@@ -2,6 +2,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { openModal } from "@/features/modal/modalSlice";
+import MyAccount from "./dashboard/MyAccount";
 
 const isActive = (path, pathname) => path.split('/')[1] === pathname?.split('/')[1];
 
@@ -32,12 +33,22 @@ const HeaderMenuContent = ({ float = "" }) => {
         </li>
       ))}
       {isLoggedIn && (
+        <><a className="btn dropdown-toggle" href="#" data-bs-toggle="dropdown">
         <div className="btn flexbox">
           <div className="user-button">
             <div className="user-avatar">{username[0].toUpperCase()}</div>
             <div className="username">{username}</div>
           </div>
         </div>
+        </a>
+
+        <div className="dropdown-menu">
+        <MyAccount/>
+      </div>
+        </>
+        
+        
+
       )}
       {!isLoggedIn && (
         <li className="list-inline-item list_s">

@@ -4,6 +4,7 @@ import { store } from "../store/store";
 import ScrollToTop from "../components/common/ScrollTop";
 import "../public/assets/scss/index.scss";
 import "./global.css";
+import AuthWrapper from "@/components/layout/AuthWraper";
 
 
 if (typeof window !== "undefined") {
@@ -19,7 +20,9 @@ export default function RootLayout({ children }) {
       </head>
       <body >
       <Provider store={store}>
+        <AuthWrapper>
           {children}
+        </AuthWrapper>
       </Provider>
       <ScrollToTop />
       </body>

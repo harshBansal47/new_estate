@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setLogin } from '@/features/login/loginSlice'; // Path to your actions
 
-const AuthWrapper = ({ children }) => {
+export default function AuthWrapper({ children }){
   const dispatch = useDispatch();
   const isLoggedIn = useSelector(state => state.login.isLoggedIn);
 
@@ -39,11 +39,10 @@ const AuthWrapper = ({ children }) => {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    console.log("token", token);
-    checkAuthenticate(token);
+    if(token&&token.length>0){
+      checkAuthenticate(token);
+    }
   }, [dispatch]);
 
   return children;
 };
-
-export default AuthWrapper;

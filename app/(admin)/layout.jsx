@@ -4,9 +4,11 @@ import AuthWrapper from "@/components/layout/AuthWraper";
 
 
 export default function AuthLayout({children}){
-    return(
-        <AuthWrapper>
+    return(<>
+    //
             {children}
-        </AuthWrapper>
+        
+    </>
+        
     )
 }
