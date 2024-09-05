@@ -15,7 +15,6 @@ export async function GET(req) {
             ? authHeader.substring(7)
             : authHeader;
 
-        console.log('Extracted Token:', token);
 
         // Forward the request to the Express server
         const serverurl = process.env.BACKEND_URL;

@@ -17,6 +17,7 @@ export const loginSlice = createSlice({
       state.isLoggedIn = true; // Directly set to true when login is successful
       state.role = action.payload.role;
       state.token = action.payload.token;
+      console.log("current state",state.username)
     },
     logout: (state) => {
       state.username = '';

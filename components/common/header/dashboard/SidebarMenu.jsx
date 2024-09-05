@@ -46,6 +46,17 @@ const SidebarMenu = () => {
                 <span>Create Listing</span>
               </Link>
             </li>
+
+            <li
+              className={`treeview ${
+                isSinglePageActive("/create-gallery", pathname) ? "active" : ""
+              }`}
+            >
+              <Link href="/create-gallery">
+                <i className="flaticon-plus"></i>
+                <span>Manage Gallery</span>
+              </Link>
+            </li>
           </ul>
         </li>
         {/* End Main */}
