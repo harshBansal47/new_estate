@@ -22,7 +22,7 @@ const Index = () => {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
         },
-        body:token
+        // body:token
       })
       console.log("api request sent");
 

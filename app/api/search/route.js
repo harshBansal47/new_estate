@@ -1,3 +1,5 @@
+import { cache } from "react";
+
 export async function GET(req, res) {
     try {
         const SERVER_URL = process.env.Backend_URL;
@@ -23,7 +25,7 @@ export async function GET(req, res) {
         const backendResponse = await fetch(backendUrl, {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' }
-        });
+        },{cache:'no-store'});
 
         // Handle fetch errors
         if (!backendResponse.ok) {

@@ -11,7 +11,7 @@ export async function GET(req,res) {
           'Content-Type': 'application/json',
           // Add other headers as needed
         }
-      });
+      },{cache:'no-store'});
       // Make the fetch request using the Request object
       const fetchResponse = await response.json();
   
