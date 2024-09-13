@@ -14,7 +14,7 @@ const HeaderMenuContent = ({ float = "" }) => {
   const pathname = usePathname();
   const isLoggedIn = useSelector((state) => state.login.isLoggedIn);
   const username = useSelector((state) => state.login.username);
-  
+
   const [userName, setUserName] = useState("user");
 
   useEffect(() => {
@@ -43,31 +43,39 @@ const HeaderMenuContent = ({ float = "" }) => {
         >
           <span className="title">Home</span>
         </a>
-        {/* <!-- Level Two--> */}
-
-
       </li>
       {/* End .dropitem */}
 
+
       <li className="dropitem">
         <a
-          href="/gallery"
+          href="/properties"
           className={
-            pathname === "/gallery"
+            pathname === "/properties"
               ? "ui-active"
               : undefined
           }
         >
-          <span className="title">Gallery</span>
-
+          <span className="title">Properties</span>
         </a>
-
       </li>
+      {/* End .dropitem */}
+
+      <li className="last">
+        <Link
+          href="/contact"
+          className={pathname === "/contact" ? "ui-active" : undefined}
+        >
+          Contact
+        </Link>
+      </li>
+      {/* End .dropitem */}
+
       {/* End .dropitem */}
 
       <li className="dropitem">
         <a
-          href="#"
+          href="/about"
           className={
 
             pathname === '/about'
@@ -80,19 +88,20 @@ const HeaderMenuContent = ({ float = "" }) => {
       </li>
       {/* End .dropitem */}
 
+
       <li className="dropitem">
         <a
-          href="#"
+          href="/gallery"
           className={
-            pathname === "/properties"
+            pathname === "/gallery"
               ? "ui-active"
               : undefined
           }
         >
-          <span className="title">Properties</span>
+          <span className="title">Gallery</span>
         </a>
+
       </li>
-      {/* End .dropitem */}
 
       <li className="dropitem">
         <a
@@ -109,15 +118,9 @@ const HeaderMenuContent = ({ float = "" }) => {
       </li>
       {/* End .dropitem */}
 
-      <li className="last">
-        <Link
-          href="/contact"
-          className={pathname === "/contact" ? "ui-active" : undefined}
-        >
-          Contact
-        </Link>
-      </li>
-      {/* End .dropitem */}
+
+
+
 
       <li className="user_setting">
         <div className="dropdown">
