@@ -14,11 +14,12 @@ const HeaderMenuContent = ({ float = "" }) => {
 
   const menuItems = [
     { name: "Home", path: "/" },
-    { name: "Gallery", path: "/gallery" },
     { name: "Property", path: "/properties" },
-    { name: "About", path: "/about" },
-    { name: "Blog", path: "/blogs" },
     { name: "Contact", path: "/contact" },
+    { name: "About", path: "/about" },
+    { name: "Gallery", path: "/gallery" },
+    { name: "Blog", path: "/blogs" },
+   
   ];
 
   return (
