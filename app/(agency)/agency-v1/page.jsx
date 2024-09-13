@@ -2,9 +2,9 @@ import dynamic from "next/dynamic";
 import AgencyV1 from "@/components/agency-view/agency-v1";
 
 export const metadata = {
-  title: 'Simple Listing – AgencyV1 || FindHouse - Real Estate React Template',
+  title: 'Simple Listing – AgencyV1 ||Prop Trade Real Estate',
   description:
-    'FindHouse - Real Estate React Template',
+    'Prop Trade Real Estate',
 }
 
 const index = () => {
