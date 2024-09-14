@@ -14,27 +14,44 @@ const HeaderMenuContent = ({ float = "" }) => {
 
   const menuItems = [
     { name: "Home", path: "/" },
+<<<<<<< HEAD
     { name: "Property", path: "/properties" },
     { name: "Contact", path: "/contact" },
     { name: "About", path: "/about" },
     { name: "Gallery", path: "/gallery" },
     { name: "Blog", path: "/blogs" },
 
+=======
+    { name: "Gallery", path: "/gallery" },
+    { name: "Property", path: "/properties" },
+    { name: "About", path: "/about" },
+    { name: "Blog", path: "/blogs" },
+    { name: "Contact", path: "/contact" },
+>>>>>>> master
   ];
 
   return (
     <ul id="respMenu" className="ace-responsive-menu text-end d-lg-block d-none" data-menu-style="horizontal">
       {menuItems.map((item) => (
         <li key={item.name} className="dropitem">
+<<<<<<< HEAD
 
           <a href={item.path} className={isActive(item.path, pathname) ? "ui-active" : undefined}>
             <span className="title">{item.name}</span>
           </a>
 
+=======
+         
+            <a href={item.path} className={isActive(item.path, pathname) ? "ui-active" : undefined}>
+              <span className="title">{item.name}</span>
+            </a>
+         
+>>>>>>> master
         </li>
       ))}
       {isLoggedIn && (
         <><a className="btn dropdown-toggle" href="#" data-bs-toggle="dropdown">
+<<<<<<< HEAD
           <div className="btn flexbox">
             <div className="user-button">
               <div className="user-avatar">{username[0].toUpperCase()}</div>
@@ -49,6 +66,22 @@ const HeaderMenuContent = ({ float = "" }) => {
         </>
 
 
+=======
+        <div className="btn flexbox">
+          <div className="user-button">
+            <div className="user-avatar">{username[0].toUpperCase()}</div>
+            <div className="username">{username}</div>
+          </div>
+        </div>
+        </a>
+
+        <div className="dropdown-menu">
+        <MyAccount/>
+      </div>
+        </>
+        
+        
+>>>>>>> master
 
       )}
       {!isLoggedIn && (

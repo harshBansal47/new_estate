@@ -14,7 +14,11 @@ const HeaderMenuContent = ({ float = "" }) => {
   const pathname = usePathname();
   const isLoggedIn = useSelector((state) => state.login.isLoggedIn);
   const username = useSelector((state) => state.login.username);
+<<<<<<< HEAD
 
+=======
+  
+>>>>>>> master
   const [userName, setUserName] = useState("user");
 
   useEffect(() => {
@@ -43,6 +47,7 @@ const HeaderMenuContent = ({ float = "" }) => {
         >
           <span className="title">Home</span>
         </a>
+<<<<<<< HEAD
       </li>
       {/* End .dropitem */}
 
@@ -52,10 +57,24 @@ const HeaderMenuContent = ({ float = "" }) => {
           href="/properties"
           className={
             pathname === "/properties"
+=======
+        {/* <!-- Level Two--> */}
+
+
+      </li>
+      {/* End .dropitem */}
+
+      <li className="dropitem">
+        <a
+          href="/gallery"
+          className={
+            pathname === "/gallery"
+>>>>>>> master
               ? "ui-active"
               : undefined
           }
         >
+<<<<<<< HEAD
           <span className="title">Properties</span>
         </a>
       </li>
@@ -76,6 +95,18 @@ const HeaderMenuContent = ({ float = "" }) => {
       <li className="dropitem">
         <a
           href="/about"
+=======
+          <span className="title">Gallery</span>
+
+        </a>
+
+      </li>
+      {/* End .dropitem */}
+
+      <li className="dropitem">
+        <a
+          href="#"
+>>>>>>> master
           className={
 
             pathname === '/about'
@@ -88,20 +119,35 @@ const HeaderMenuContent = ({ float = "" }) => {
       </li>
       {/* End .dropitem */}
 
+<<<<<<< HEAD
 
       <li className="dropitem">
         <a
           href="/gallery"
           className={
             pathname === "/gallery"
+=======
+      <li className="dropitem">
+        <a
+          href="#"
+          className={
+            pathname === "/properties"
+>>>>>>> master
               ? "ui-active"
               : undefined
           }
         >
+<<<<<<< HEAD
           <span className="title">Gallery</span>
         </a>
 
       </li>
+=======
+          <span className="title">Properties</span>
+        </a>
+      </li>
+      {/* End .dropitem */}
+>>>>>>> master
 
       <li className="dropitem">
         <a
@@ -118,9 +164,21 @@ const HeaderMenuContent = ({ float = "" }) => {
       </li>
       {/* End .dropitem */}
 
+<<<<<<< HEAD
 
 
 
+=======
+      <li className="last">
+        <Link
+          href="/contact"
+          className={pathname === "/contact" ? "ui-active" : undefined}
+        >
+          Contact
+        </Link>
+      </li>
+      {/* End .dropitem */}
+>>>>>>> master
 
       <li className="user_setting">
         <div className="dropdown">

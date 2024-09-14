@@ -63,6 +63,10 @@
         }
     }
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> master
 .slick-prev:hover,
 .slick-prev:focus,
 .slick-next:hover,
@@ -74,6 +78,7 @@
     }
 }
 
+<<<<<<< HEAD
 //
 .slide {
     height: 805px;
@@ -88,6 +93,24 @@
     }
     &.image-4 {
         background-image: url(../../images/background/c4.jpg);
+=======
+.slide {
+    height: 805px;
+    &.image-1 {
+        // background-image: url(../../images//home/1.jpg);
+        background-image: url(../../images/slider/estate1.jpg);
+    }
+    &.image-2 {
+        // background-image: url(../../images/home/2.jpg);
+        background-image: url(../../images/slider/estate2.jpg);
+    }
+    &.image-3 {
+        // background-image: url(../../images/home/2.jpg);
+        background-image: url(../../images/slider/estate3.jpg);
+    }
+    &.image-4 {
+        background-image: url(../../images/home/4.jpg);
+>>>>>>> master
     }
     &.image-5 {
         background-image: url(../../images/home/8.jpg);

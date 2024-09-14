@@ -1,6 +1,15 @@
+<<<<<<< HEAD
 'use client'
 
 import Slider from "react-slick";
+=======
+"use client";
+
+import Slider from "react-slick";
+import estate1 from "../../public/assets/images/slider/estate1.jpg";
+import estate2 from "../../public/assets/images/slider/estate2.jpg";
+import estate3 from "../../public/assets/images/slider/estate3.jpg";
+>>>>>>> master
 
 const HeroSlider = () => {
   const settings = {
@@ -10,7 +19,11 @@ const HeroSlider = () => {
     speed: 1200,
     slidesToShow: 1,
     slidesToScroll: 1,
+<<<<<<< HEAD
     autoplay: false,
+=======
+    autoplay: true,
+>>>>>>> master
   };
 
   return (
@@ -19,6 +32,20 @@ const HeroSlider = () => {
       <div className="slide slide-one image-2"></div>
       <div className="slide slide-one image-3"></div>
     </Slider>
+<<<<<<< HEAD
+=======
+    // <Slider {...settings}>
+    //   <div className="slide">
+    //     <img src={estate1} alt="Slide 1" />
+    //   </div>
+    //   <div className="slide">
+    //     <img src={estate2} alt="Slide 2" />
+    //   </div>
+    //   <div className="slide">
+    //     <img src={estate3} alt="Slide 3" />
+    //   </div>
+    // </Slider>
+>>>>>>> master
   );
 };
 

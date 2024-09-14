@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 "use client"
+=======
+"use client";
+>>>>>>> master
 
 import { Gallery, Item } from "react-photoswipe-gallery";
 import "photoswipe/dist/photoswipe.css";
@@ -12,6 +16,7 @@ import PopupSignInUp from "@/components/common/PopupSignInUp";
 // import ListingOne from "@/components/listing-single/ListingOne";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
+<<<<<<< HEAD
 
 const ListingDynamicDetailsV1 = ({ params }) => {
   const id = params.id; // Ensure this is not changing unexpectedly; otherwise, include in the dependencies array.
@@ -26,6 +31,27 @@ const ListingDynamicDetailsV1 = ({ params }) => {
             'Content-Type': 'application/json'
           }
         })
+=======
+import { propertyFeatures } from "@/components/common/listing-details/PropertyFeatures";
+import Slider from "react-slick";
+import ListingGallery from "@/components/common/listing-details/ListingGallery";
+import DetailsContent from "@/components/listing-details-v1/DetailsContent";
+import Sidebar from "@/components/listing-details-v1/Sidebar";
+
+const ListingDynamicDetailsV1 = ({ params }) => {
+  const id = params.id; // Ensure this is not changing unexpectedly; otherwise, include in the dependencies array.
+  const [property, setProperty] = useState({});
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`/api/properties/Findone/:${id}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+>>>>>>> master
         const data = await response.json();
         if (data.status === "success") {
           setProperty(data.data);
@@ -33,6 +59,7 @@ const ListingDynamicDetailsV1 = ({ params }) => {
           throw new Error("Failed to fetch properties");
         }
       } catch (error) {
+<<<<<<< HEAD
         console.error("Failed to fetch Property",error);
       }
     }
@@ -40,6 +67,13 @@ const ListingDynamicDetailsV1 = ({ params }) => {
   }
   ,[]
 )
+=======
+        console.error("Failed to fetch Property", error);
+      }
+    };
+    fetchData();
+  }, []);
+>>>>>>> master
 
   return (
     <>
@@ -52,6 +86,7 @@ const ListingDynamicDetailsV1 = ({ params }) => {
       {/* <!-- Modal --> */}
       <PopupSignInUp />
 
+<<<<<<< HEAD
       {/* Gallery Section*/}
 
       <section className="listing-title-area mt85 md-mt0">
@@ -171,10 +206,21 @@ const ListingDynamicDetailsV1 = ({ params }) => {
 {/**
 
      
+=======
+      {/* <!-- Listing Single Property --> */}
+      <section className="listing-title-area mt85 md-mt0">
+        <div className="container">
+          <ListingGallery />
+        </div>
+      </section>
+
+      {/* <!-- Agent Single Grid View --> */}
+>>>>>>> master
       <section className="our-agent-single bgc-f7 pb30-991">
         <div className="container">
           <div className="row">
             <div className="col-md-12 col-lg-8">
+<<<<<<< HEAD
               <div className="listing_single_description">
                 <div className="lsd_list">
                   <ul className="mb0">
@@ -724,6 +770,21 @@ const ListingDynamicDetailsV1 = ({ params }) => {
 
        */}
 
+=======
+              <DetailsContent />
+            </div>
+            {/* End details content .col-lg-8 */}
+
+            <div className="col-lg-4 col-xl-4">
+              <Sidebar />
+            </div>
+            {/* End sidebar content .col-lg-4 */}
+          </div>
+          {/* End .row */}
+        </div>
+      </section>
+
+>>>>>>> master
       {/* <!-- Our Footer --> */}
       <section className="footer_one">
         <div className="container">
@@ -743,4 +804,8 @@ const ListingDynamicDetailsV1 = ({ params }) => {
   );
 };
 
+<<<<<<< HEAD
 export default ListingDynamicDetailsV1;
+=======
+export default ListingDynamicDetailsV1;
+>>>>>>> master

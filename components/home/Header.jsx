@@ -44,7 +44,11 @@ const Header = () => {
             src="/assets/images/header-logo2.png"
             alt="header-logo2.png"
           />
+<<<<<<< HEAD
           <span>Real Estate</span>
+=======
+          <span>FindHouse</span>
+>>>>>>> master
         </Link>
         {/* site logo brand */}
 

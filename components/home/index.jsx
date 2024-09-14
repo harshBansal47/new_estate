@@ -41,9 +41,13 @@ const index = () => {
               <div className="home_content home4">
                 <div className="home-text text-center">
                   <h2 className="fz55">Find Your Dream Home</h2>
+<<<<<<< HEAD
                   <p className="fz18 color-white">
                     
                   </p>
+=======
+                  <p className="fz18 color-white"></p>
+>>>>>>> master
                 </div>
                 <GlobalHeroFilter className="home4" />
               </div>
