@@ -1,0 +1,71 @@
+/* MobileMenu.module.css */
+
+.megaMenuWrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f8f9fa; /* Light background for visibility */
+    padding: 10px 0;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 10px 20px;
+    background-color: #ffffff; /* White background */
+    border-bottom: 1px solid #e0e0e0;
+  }
+  
+  .mainLogo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .mainLogo img {
+    margin-top: 10px;
+  }
+  
+  .userButton {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+  }
+  
+  .userAvatar {
+    width: 30px;
+    height: 30px;
+    background-color: #007bff; /* Blue background */
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+  }
+  
+  .menuBarHome {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .menuBarHome button,
+  .menuBarHome a {
+    color: #333; /* Darker text color */
+    font-size: 18px;
+  }
+  
+  .menuBarHome button:hover,
+  .menuBarHome a:hover {
+    color: #007bff; /* Blue color on hover */
+  }
+  
+  .offcanvasMenu {
+    background-color: #ffffff;
+    padding: 20px;
+  }
+  
