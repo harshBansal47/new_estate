@@ -4,7 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { openModal } from "@/features/modal/modalSlice";
 import MyAccount from "./dashboard/MyAccount";
 
-const isActive = (path, pathname) => path.split('/')[1] === pathname?.split('/')[1];
+const isActive = (path, pathname) =>
+  path.split("/")[1] === pathname?.split("/")[1];
 
 const HeaderMenuContent = ({ float = "" }) => {
   const pathname = usePathname();
@@ -14,79 +15,52 @@ const HeaderMenuContent = ({ float = "" }) => {
 
   const menuItems = [
     { name: "Home", path: "/" },
-<<<<<<< HEAD
     { name: "Property", path: "/properties" },
     { name: "Contact", path: "/contact" },
     { name: "About", path: "/about" },
     { name: "Gallery", path: "/gallery" },
     { name: "Blog", path: "/blogs" },
-
-=======
-    { name: "Gallery", path: "/gallery" },
-    { name: "Property", path: "/properties" },
-    { name: "About", path: "/about" },
-    { name: "Blog", path: "/blogs" },
-    { name: "Contact", path: "/contact" },
->>>>>>> master
   ];
 
   return (
-    <ul id="respMenu" className="ace-responsive-menu text-end d-lg-block d-none" data-menu-style="horizontal">
+    <ul
+      id="respMenu"
+      className="ace-responsive-menu text-end d-lg-block d-none"
+      data-menu-style="horizontal"
+    >
       {menuItems.map((item) => (
         <li key={item.name} className="dropitem">
-<<<<<<< HEAD
-
-          <a href={item.path} className={isActive(item.path, pathname) ? "ui-active" : undefined}>
+          <a
+            href={item.path}
+            className={isActive(item.path, pathname) ? "ui-active" : undefined}
+          >
             <span className="title">{item.name}</span>
           </a>
-
-=======
-         
-            <a href={item.path} className={isActive(item.path, pathname) ? "ui-active" : undefined}>
-              <span className="title">{item.name}</span>
-            </a>
-         
->>>>>>> master
         </li>
       ))}
       {isLoggedIn && (
-        <><a className="btn dropdown-toggle" href="#" data-bs-toggle="dropdown">
-<<<<<<< HEAD
-          <div className="btn flexbox">
-            <div className="user-button">
-              <div className="user-avatar">{username[0].toUpperCase()}</div>
-              <div className="username">{username}</div>
+        <>
+          <a className="btn dropdown-toggle" href="#" data-bs-toggle="dropdown">
+            <div className="btn flexbox">
+              <div className="user-button">
+                <div className="user-avatar">{username[0].toUpperCase()}</div>
+                <div className="username">{username}</div>
+              </div>
             </div>
-          </div>
-        </a>
+          </a>
 
           <div className="dropdown-menu">
             <MyAccount />
           </div>
         </>
-
-
-=======
-        <div className="btn flexbox">
-          <div className="user-button">
-            <div className="user-avatar">{username[0].toUpperCase()}</div>
-            <div className="username">{username}</div>
-          </div>
-        </div>
-        </a>
-
-        <div className="dropdown-menu">
-        <MyAccount/>
-      </div>
-        </>
-        
-        
->>>>>>> master
-
       )}
       {!isLoggedIn && (
         <li className="list-inline-item list_s">
-          <button className="btn flaticon-user" data-bs-target=".bd-example-modal-lg" onClick={() => dispatch(openModal())}>
+          <button
+            className="btn flaticon-user"
+            data-bs-target=".bd-example-modal-lg"
+            onClick={() => dispatch(openModal())}
+          >
             <span className="dn-lg">Login/Register</span>
           </button>
         </li>

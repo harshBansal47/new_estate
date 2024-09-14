@@ -1,8 +1,4 @@
-'use client'
-
-import Slider from "react-slick";
 "use client";
-
 import Slider from "react-slick";
 import estate1 from "../../public/assets/images/slider/estate1.jpg";
 import estate2 from "../../public/assets/images/slider/estate2.jpg";
@@ -26,7 +22,6 @@ const HeroSlider = () => {
       <div className="slide slide-one image-2"></div>
       <div className="slide slide-one image-3"></div>
     </Slider>
-
   );
 };
 

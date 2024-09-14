@@ -1,9 +1,5 @@
 {
-<<<<<<< HEAD
-  "name": "Real Estate",
-=======
   "name": "findhouse",
->>>>>>> master
   "version": "2.0.0",
   "private": true,
   "scripts": {
@@ -36,12 +32,8 @@
     "react-slick": "^0.29.0",
     "sass": "^1.68.0",
     "slick-carousel": "^1.8.1",
-<<<<<<< HEAD
-    "uuid": "^9.0.1"
-=======
     "uuid": "^9.0.1",
     "yarn": "^1.22.22"
->>>>>>> master
   },
   "devDependencies": {
     "@types/node": "22.5.1",
