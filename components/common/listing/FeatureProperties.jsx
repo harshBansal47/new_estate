@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-'use client'
-=======
 "use client";
->>>>>>> master
 
 import Image from "next/image";
 import featureProContent from "../../../data/properties";
@@ -21,9 +17,6 @@ const FeatureProperties = () => {
 
   return (
     <>
-<<<<<<< HEAD
-      
-=======
       <Slider {...settings} arrows={false}>
         {featureProContent.slice(0, 5).map((item) => (
           <div className="item" key={item.id}>
@@ -56,7 +49,6 @@ const FeatureProperties = () => {
           </div>
         ))}
       </Slider>
->>>>>>> master
     </>
   );
 };

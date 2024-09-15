@@ -2,9 +2,6 @@ import Image from "next/image";
 
 const Creaator = () => {
   return (
-<<<<<<< HEAD
-    <></>
-=======
     <div className="media d-flex">
       <Image
         width={90}
@@ -22,7 +19,6 @@ const Creaator = () => {
         </a>
       </div>
     </div>
->>>>>>> master
   );
 };
 
