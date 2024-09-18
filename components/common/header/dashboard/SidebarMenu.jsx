@@ -15,10 +15,10 @@ const SidebarMenu = () => {
             <Image
               width={40}
               height={45}
-              src="/assets/images/header-logo2.png"
+              src="/assets/images/propLogo.png"
               alt="header-logo2.png"
             />
-            <span>Site Name</span>
+            <span>Realtors</span>
           </Link>
         </li>
         {/* End header */}

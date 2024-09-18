@@ -3,7 +3,7 @@ module.exports = [
     id: 1,
     img: "/assets/images/blog/1.jpg",
     postMeta: "business",
-    title: `Skills That You Can Learn In The Real Estate Market`,
+    title: `Skills That You Can Learn In The Realtors Market`,
     posterAvatar: "/assets/images/property/pposter1.png",
     posterName: "Ali Tufan",
     postedDate: "7 August 2022",

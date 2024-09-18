@@ -1,7 +1,7 @@
 const TagList = () => {
   const tagContent = [
     { id: 1, name: "Apartment" },
-    { id: 2, name: "Real Estate" },
+    { id: 2, name: "Realtors" },
     { id: 3, name: "Estate" },
     { id: 4, name: "Luxury" },
     { id: 5, name: "Real" },
