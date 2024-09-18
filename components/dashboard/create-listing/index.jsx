@@ -1,4 +1,3 @@
-
 "use client"
 import React, { useState } from "react";
 import { MapContainer, TileLayer, Marker, useMapEvents } from "react-leaflet";
@@ -29,7 +28,6 @@ const index = () => {
   const { username, isLoggedIn, role } = useSelector((state) => state.login);
 
   // State variables for form fields
-  const [marker, setMarker] = useState(null);
   const [propertyTitle, setPropertyTitle] = useState("");
   const [propertyDescription, setPropertyDescription] = useState("");
   const [propertyType, setPropertyType] = useState("Commercial"); // Default to first value
@@ -39,18 +37,14 @@ const index = () => {
   const [propertyLocality, setPropertyLocality] = useState("");
   const [propertyCity, setPropertyCity] = useState("");
   const [propertyZip, setPropertyZip] = useState("");
+  const [marker, setMarker] = useState(null);
   const [reraId, setReraId] = useState("");
   const [builderName, setBuilderName] = useState("");
-  const [planPrice, setPlanPrice] = useState("");
-  const [planSize, setPlanSize] = useState("");
-  const [planDescription, setPlanDescription] = useState("");
+  const [highlights, setHighlights] = useState([]);
   const [brochure, setBrochure] = useState(null);
-  const [imageUpload, setImageUpload] = useState(null);
   const [brandImage, setBrandImage] = useState(null);
   const [siteImages, setSiteImages] = useState([]);
-  const [highlights, setHighlights] = useState([]);
   const [inputValue, setInputValue] = useState("");
-
   const [sitePlans, setSitePlans] = useState([
     {
       planPrice: "",
@@ -211,7 +205,7 @@ const index = () => {
 
   // Handle form submission
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    // e.preventDefault();
 
     // Check user permissions
     if (!isLoggedIn || (role !== "admin" && role !== "manager")) {
@@ -219,42 +213,69 @@ const index = () => {
       return;
     }
 
-    // Prepare the JSON payload
-    const jsonPayload = {
-      propertyTitle,
-      propertyDescription,
-      propertyType,
-      propertyStatus,
-      propertyPrice: propertyPrice.replace(/,/g, ''),
-      propertyArea,
-      propertyLocality,
-      propertyCity,
-      propertyZip,
-      reraId,
-      builderName,
-      locationMap: {
-        latitude: marker ? marker.lat : '',
-        longitude: marker ? marker.lng : '',
-      },
-      amenities: Object.keys(amenities).filter(key => amenities[key]),
-      highlights,
-      sitePlans: await Promise.all(sitePlans.map(async (plan) => ({
-        ...plan,
-        imageUpload: plan.imageUpload ? await (plan.imageUpload) : null,
-      }))),
-      brandImage: brandImage ? await (brandImage) : null,
-      siteImages: await Promise.all(siteImages.map(file => (file))),
-      brochure: brochure ? await (brochure) : null,
-    };
+    // Prepare FormData payload
+    const formData = new FormData();
+    formData.append("propertyTitle", propertyTitle);
+    formData.append("propertyDescription", propertyDescription);
+    formData.append("propertyType", propertyType);
+    formData.append("propertyStatus", propertyStatus);
+    formData.append("propertyPrice", propertyPrice.replace(/,/g, ''));
+    formData.append("propertyArea", propertyArea);
+    formData.append("propertyLocality", propertyLocality);
+    formData.append("propertyCity", propertyCity);
+    formData.append("propertyZip", propertyZip);
+    formData.append("reraId", reraId);
+    formData.append("builderName", builderName);
 
+    // Append locationMap if marker exists
+    if (marker) {
+        formData.append("locationMap[latitude]", marker.lat);
+        formData.append("locationMap[longitude]", marker.lng);
+    }
+
+    // Append amenities
+    Object.keys(amenities).forEach((key) => {
+        if (amenities[key]) formData.append("amenities[]", key);
+    });
+
+    // Append highlights
+    highlights.forEach((highlight, index) => {
+        formData.append(`highlights[${index}]`, highlight);
+    });
+
+    // Append site plans
+    await Promise.all(sitePlans.map(async (plan, index) => {
+        formData.append(`sitePlans[${index}][planPrice]`, plan.planPrice);
+        formData.append(`sitePlans[${index}][planSize]`, plan.planSize);
+        formData.append(`sitePlans[${index}][planDescription]`, plan.planDescription);
+        if (plan.imageUpload) {
+            const image = await plan.imageUpload;
+            formData.append(`sitePlans[${index}][imageUpload]`, image);
+        }
+    }));
+
+    // Append brand image if it exists
+    if (brandImage) {
+        const image = await brandImage;
+        formData.append("brandImage", image);
+    }
+
+    // Append site images
+    await Promise.all(siteImages.map(async (file) => {
+        const image = await file;
+        formData.append("siteImages[]", image);
+    }));
+
+    // Append brochure if it exists
+    if (brochure) {
+        const brochureFile = await brochure;
+        formData.append("brochure", brochureFile);
+    }
 
     try {
       const response = await fetch('/api/properties', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(jsonPayload),
+        body: formData, // No need for headers, as FormData sets its own content type
       });
 
       if (!response.ok) {
@@ -271,7 +292,8 @@ const index = () => {
       console.error('Property creation failed:', error);
       alert('An error occurred while creating the property. Please try again later.');
     }
-  };
+};
+
 
   // Functions to manage highlights
   const addHighlight = () => {
