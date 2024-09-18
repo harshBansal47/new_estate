@@ -21,11 +21,11 @@ const AddressSidebar = () => {
       </div>
       <div className="content_list">
         <h5>Email</h5>
-        <p>info@findhouse.in</p>
+        <p>info@Realtors.in</p>
       </div>
       <div className="content_list">
         <h5>Skype</h5>
-        <p>findhouse.in</p>
+        <p>Realtors.in</p>
       </div>
       <h5>Follow Us</h5>
       <ul className="contact_form_social_area">

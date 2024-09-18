@@ -20,10 +20,10 @@ const MobileMenu = () => {
               width={40}
               height={45}
               className="nav_logo_img contain mt20"
-              src="/assets/images/propLogo.jpg"
+              src="/assets/images/propLogo.png"
               alt="header-logo2.png"
             />
-            <span className="mt20">FindHouse</span>
+            <span className="mt20">Realtors</span>
           </div>
           {/* main_logo_home2 */}
 

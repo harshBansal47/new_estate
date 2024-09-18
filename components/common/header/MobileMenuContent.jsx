@@ -44,13 +44,13 @@ const MobileMenuContent = () => {
             width={40}
             height={45}
             className="nav_logo_img img-fluid mt20"
-            src="/assets/images/propLogo.jpg"
+            src="/assets/images/propLogo.png"
             alt="header-logo.png"
           />
           <span
             style={{ marginLeft: "10px", fontSize: "25px", fontWeight: "bold" }}
           >
-            Site Name
+            Realtors
           </span>
         </Link>
         <div

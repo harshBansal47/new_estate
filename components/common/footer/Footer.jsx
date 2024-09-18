@@ -45,7 +45,7 @@ const Footer = () => {
           <h4>Contact Us</h4>
           <ul className="list-unstyled">
             <li>
-              <a href="mailto:info@findhouse.com">info@findhouse.com</a>
+              <a href="mailto:info@Realtors.com">info@Realtors.com</a>
             </li>
             <li>
               <a href="#">Collins Street West, Victoria</a>
