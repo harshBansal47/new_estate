@@ -40,7 +40,7 @@ const MobileMenuContent = () => {
             width={40}
             height={45}
             className="nav_logo_img img-fluid mt20"
-            src="/assets/images/header-logo2.png"
+            src="/assets/images/propLogo.jpg"
             alt="header-logo.png"
           />
         </Link>

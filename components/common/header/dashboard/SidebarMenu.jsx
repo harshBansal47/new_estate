@@ -15,7 +15,7 @@ const SidebarMenu = () => {
             <Image
               width={40}
               height={45}
-              src="/assets/images/header-logo2.png"
+              src="/assets/images/propLogo.jpg"
               alt="header-logo2.png"
             />
             <span>Site Name</span>
