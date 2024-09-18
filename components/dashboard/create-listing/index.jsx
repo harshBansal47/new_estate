@@ -205,7 +205,7 @@ const index = () => {
 
   // Handle form submission
   const handleSubmit = async (e) => {
-    // e.preventDefault();
+    e.preventDefault();
 
     // Check user permissions
     if (!isLoggedIn || (role !== "admin" && role !== "manager")) {
@@ -226,33 +226,22 @@ const index = () => {
     formData.append("propertyZip", propertyZip);
     formData.append("reraId", reraId);
     formData.append("builderName", builderName);
-
     // Append locationMap if marker exists
     if (marker) {
-        formData.append("locationMap[latitude]", marker.lat);
-        formData.append("locationMap[longitude]", marker.lng);
+        formData.append("latitude", marker.lat);
+        formData.append("longitude", marker.lng);
     }
 
     // Append amenities
-    Object.keys(amenities).forEach((key) => {
-        if (amenities[key]) formData.append("amenities[]", key);
-    });
-
+    formData.append("amenities",Object.keys(amenities).filter(
+      (key) => amenities[key]
+    ));
     // Append highlights
-    highlights.forEach((highlight, index) => {
-        formData.append(`highlights[${index}]`, highlight);
-    });
+    formData.append(`highlights`, highlights);
 
-    // Append site plans
-    await Promise.all(sitePlans.map(async (plan, index) => {
-        formData.append(`sitePlans[${index}][planPrice]`, plan.planPrice);
-        formData.append(`sitePlans[${index}][planSize]`, plan.planSize);
-        formData.append(`sitePlans[${index}][planDescription]`, plan.planDescription);
-        if (plan.imageUpload) {
-            const image = await plan.imageUpload;
-            formData.append(`sitePlans[${index}][imageUpload]`, image);
-        }
-    }));
+    if(sitePlans.length>0){
+      formData.append("siteplans",sitePlans);
+    }
 
     // Append brand image if it exists
     if (brandImage) {
@@ -261,10 +250,9 @@ const index = () => {
     }
 
     // Append site images
-    await Promise.all(siteImages.map(async (file) => {
-        const image = await file;
-        formData.append("siteImages[]", image);
-    }));
+    if(siteImages.length>0){
+      formData.append("siteImages",siteImages);
+    }
 
     // Append brochure if it exists
     if (brochure) {

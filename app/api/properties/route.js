@@ -36,7 +36,14 @@ export async function POST(request){
       
     } catch (error) {
       console.error('Failed to forward the request:', error);
-      res.status(500).send({ message: 'Internal server error' });
+      return new Response({
+        headers: {
+          'Content-Type': 'application/json',
+          'Cache-Control': 's-maxage=300, stale-while-revalidate'
+        },
+        status: 404,
+        statusText: 'ON'
+      })
     }
   
 }
