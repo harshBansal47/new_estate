@@ -1,6 +1,8 @@
-'use client'
-
+"use client";
 import Slider from "react-slick";
+import estate1 from "../../public/assets/images/slider/estate1.jpg";
+import estate2 from "../../public/assets/images/slider/estate2.jpg";
+import estate3 from "../../public/assets/images/slider/estate3.jpg";
 
 const HeroSlider = () => {
   const settings = {
@@ -11,6 +13,7 @@ const HeroSlider = () => {
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: false,
+    autoplay: true,
   };
 
   return (

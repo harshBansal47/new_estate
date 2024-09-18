@@ -148,19 +148,6 @@ const index = () => {
     }
   };
 
-  const convertToBase64 = (file) => {
-    return new Promise((resolve, reject) => {
-      const fileReader = new FileReader();
-      fileReader.readAsDataURL(file);
-      fileReader.onload = () => {
-        resolve(fileReader.result);
-      };
-      fileReader.onerror = (error) => {
-        reject(error);
-      };
-    });
-  };
-
 
   const handleFileChange = (e, index = null) => {
     const { files, id } = e.target;
@@ -225,13 +212,13 @@ const index = () => {
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     // Check user permissions
     if (!isLoggedIn || (role !== "admin" && role !== "manager")) {
       alert("You do not have permission to create a property.");
       return;
     }
-  
+
     // Prepare the JSON payload
     const jsonPayload = {
       propertyTitle,
@@ -245,22 +232,22 @@ const index = () => {
       propertyZip,
       reraId,
       builderName,
-      locationMap:{
+      locationMap: {
         latitude: marker ? marker.lat : '',
-      longitude: marker ? marker.lng : '',
+        longitude: marker ? marker.lng : '',
       },
       amenities: Object.keys(amenities).filter(key => amenities[key]),
       highlights,
       sitePlans: await Promise.all(sitePlans.map(async (plan) => ({
         ...plan,
-        imageUpload: plan.imageUpload ? await convertToBase64(plan.imageUpload) : null,
+        imageUpload: plan.imageUpload ? await (plan.imageUpload) : null,
       }))),
-      brandImage: brandImage ? await convertToBase64(brandImage) : null,
-      siteImages: await Promise.all(siteImages.map(file => convertToBase64(file))),
-      brochure: brochure ? await convertToBase64(brochure) : null,
+      brandImage: brandImage ? await (brandImage) : null,
+      siteImages: await Promise.all(siteImages.map(file => (file))),
+      brochure: brochure ? await (brochure) : null,
     };
-  
-  
+
+
     try {
       const response = await fetch('/api/properties', {
         method: 'POST',
@@ -269,11 +256,11 @@ const index = () => {
         },
         body: JSON.stringify(jsonPayload),
       });
-  
+
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-  
+
       const data = await response.json();
       if (data.status === 'success') {
         alert("Property created successfully!");
@@ -794,10 +781,7 @@ const index = () => {
                           </div>
                         </div>
                       ))}
-
                     </div>
-
-
                     <div className="my_dashboard_review mt30">
                       <div className="row">
                         <div className="col-lg-12">
@@ -805,23 +789,10 @@ const index = () => {
                         </div>
                       </div>
                     </div>
-
                   </form>
                 </div>
-                {/* End .col */}
               </div>
-              {/* End .row */}
-
-              <div className="row mt50">
-                <div className="col-lg-12">
-                  <div className="copyright-widget text-center">
-                    <p>© 2020 Find House. Made with love.</p>
-                  </div>
-                </div>
-              </div>
-              {/* End .row */}
             </div>
-            {/* End .col */}
           </div>
         </div>
       </section>

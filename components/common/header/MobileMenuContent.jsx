@@ -10,8 +10,8 @@ const dataSections = [
     routerPath: "/",
   },
   {
-    name: "Blog",
-    routerPath: "/blog",
+    name: "Properties",
+    routerPath: "/properties",
   },
   {
     name: "Contact",
@@ -22,15 +22,19 @@ const dataSections = [
     routerPath: "/about",
   },
   {
-    name: "Properties",
-    routerPath: "/properties",
+    name: "Blog",
+    routerPath: "/blog",
+  },
+  {
+    name: "Gallery",
+    routerPath: "/gallery",
   },
 ];
 
 const MobileMenuContent = () => {
   const pathname = usePathname();
   const router = useRouter();
-  const { isLoggedIn,role } = useSelector(state => state.login);
+  const { username, isLoggedIn, role } = useSelector((state) => state.login);
 
   return (
     <>
@@ -43,12 +47,21 @@ const MobileMenuContent = () => {
             src="/assets/images/propLogo.jpg"
             alt="header-logo.png"
           />
+          <span
+            style={{ marginLeft: "10px", fontSize: "25px", fontWeight: "bold" }}
+          >
+            Site Name
+          </span>
         </Link>
-        <div className="fix-icon" data-bs-dismiss="offcanvas" aria-label="Close">
+        <div
+          className="fix-icon"
+          data-bs-dismiss="offcanvas"
+          aria-label="Close"
+        >
           <span className="flaticon-close"></span>
         </div>
       </div>
-      <div style={{ maxHeight: 'calc(100vh - 100px)', overflowY: 'auto' }}>
+      <div style={{ maxHeight: "calc(100vh - 100px)", overflowY: "auto" }}>
         <Menu>
           {dataSections.map((item, index) => (
             <MenuItem key={index} onClick={() => router.push(item.routerPath)}>
@@ -57,14 +70,26 @@ const MobileMenuContent = () => {
           ))}
         </Menu>
       </div>
-      {(isLoggedIn&&role==("admin"|"manager")) && (
-        <Link
-          href="/create-listing"
-          className="btn btn-block btn-lg btn-thm circle"
-          style={{ width: '90%', margin: '10px auto' }}
+      {isLoggedIn && (role === "manager" || role === "admin") && (
+        <li
+          className={`list-inline-item add_listing `}
+          style={{
+            padding: "10px",
+            background: "red",
+            color: "white",
+            fontWeight: "bold",
+            borderRadius: "10px",
+            margin: "10px",
+          }}
         >
-          <span className="flaticon-plus"></span> Create Listing
-        </Link>
+          <Link href="/create-listing">
+            <span
+              className="flaticon-plus"
+              style={{ marginRight: "5px" }}
+            ></span>
+            <span className="">Create Listing</span>
+          </Link>
+        </li>
       )}
     </>
   );

@@ -74,20 +74,22 @@
     }
 }
 
-//
 .slide {
     height: 805px;
     &.image-1 {
-        background-image: url(../../images/background/c1.jpg);
+        // background-image: url(../../images//home/1.jpg);
+        background-image: url(../../images/slider/estate1.jpg);
     }
     &.image-2 {
-        background-image: url(../../images/background/c2.png);
+        // background-image: url(../../images/home/2.jpg);
+        background-image: url(../../images/slider/estate2.jpg);
     }
     &.image-3 {
-        background-image: url(../../images/background/c3.png);
+        // background-image: url(../../images/home/2.jpg);
+        background-image: url(../../images/slider/estate3.jpg);
     }
     &.image-4 {
-        background-image: url(../../images/background/c4.jpg);
+        background-image: url(../../images/home/4.jpg);
     }
     &.image-5 {
         background-image: url(../../images/home/8.jpg);
