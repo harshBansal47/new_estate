@@ -28,7 +28,7 @@ const OurMission = () => {
       <div className="col-lg-8 col-xl-7" style={{margin:"auto"}}>
         <div className="about_content">
           <p>
-          At Real Estate Deals, our mission is to connect people with their dream properties by offering a comprehensive and transparent platform for exploring commercial and residential spaces. We aim to simplify the property search process by providing detailed, up-to-date information about every property in our portfolio. Our goal is to empower you to make informed decisions with confidence, whether you’re looking to invest, relocate, or expand your business. We are committed to fostering trust and reliability in the real estate market, ensuring that every transaction is a seamless experience for all parties involved.
+          At Realtors Deals, our mission is to connect people with their dream properties by offering a comprehensive and transparent platform for exploring commercial and residential spaces. We aim to simplify the property search process by providing detailed, up-to-date information about every property in our portfolio. Our goal is to empower you to make informed decisions with confidence, whether you’re looking to invest, relocate, or expand your business. We are committed to fostering trust and reliability in the Realtors market, ensuring that every transaction is a seamless experience for all parties involved.
           </p>
 
           <ul className="ab_counting">

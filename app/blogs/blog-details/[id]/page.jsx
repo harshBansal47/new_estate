@@ -20,9 +20,9 @@ import blogs from "../../../../data/blogs";
 import Image from "next/image";
 
 export const metadata = {
-  title: 'Blog Details || Realtors - Real Estate React Template',
+  title: 'Blog Details || Realtors - Realtors React Template',
   description:
-    'Realtors - Real Estate React Template',
+    'Realtors - Realtors React Template',
 }
 
 const BlogDetailsDynamic = ({params}) => {

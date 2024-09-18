@@ -2,9 +2,9 @@ import dynamic from "next/dynamic";
 import AgencyDetails from "@/components/agency-details";
 
 export const metadata = {
-  title: 'Agency Details ||Prop Trade Real Estate',
+  title: 'Agency Details ||Prop Trade Realtors',
   description:
-    'Prop Trade Real Estate',
+    'Prop Trade Realtors',
 }
 
 const index = () => {

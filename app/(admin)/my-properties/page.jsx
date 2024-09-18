@@ -2,9 +2,9 @@ import dynamic from "next/dynamic";
 import MyProperties from "@/components/dashboard/my-properties";
 
 export const metadata = {
-  title: 'Prop Trade Real Estate',
+  title: 'Prop Trade Realtors',
   description:
-    'Prop Trade Real Estate',
+    'Prop Trade Realtors',
 }
 
 const index = () => {

@@ -4,16 +4,16 @@ const Seo = ({ pageTitle, font }) => (
   <>
     {/* <Head>
       <title>
-        {pageTitle && `${pageTitle} || Realtors - Real Estate React Template}`}
+        {pageTitle && `${pageTitle} || Realtors - Realtors React Template}`}
       </title>
       <meta httpEquiv="x-ua-compatible" content="ie=edge" />
       <meta
         name="keywords"
-        content="advanced custom search, agency, agent, business, clean, corporate, directory, google maps, homes, idx agent, listing properties, membership packages, property, real broker, real estate, real estate agent, real estate agency, realtor"
+        content="advanced custom search, agency, agent, business, clean, corporate, directory, google maps, homes, idx agent, listing properties, membership packages, property, real broker, Realtors, Realtors agent, Realtors agency, realtor"
       />
       <meta
         name="description"
-        content="Realtors - Real Estate React Template"
+        content="Realtors - Realtors React Template"
       />
       <meta name="ibthemes" content="ATFN" />
       <meta
