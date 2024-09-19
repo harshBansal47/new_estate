@@ -16,6 +16,7 @@ const index = () => {
 
   const [properties, setProperties] = useState([]);
 
+  const absolute_url = process.env.BACKEND_URL;
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -166,7 +167,7 @@ const index = () => {
                                         width={150}
                                         height={220}
                                         className="img-whp cover"
-                                        src={item.brandImage}
+                                        src={absolute_url+item.brandImage}
                                         alt="fp1.jpg"
                                       />}
 
