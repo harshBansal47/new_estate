@@ -1,8 +1,4 @@
 import dynamic from "next/dynamic";
-
-
-
-
 import BreadCrumb2 from "../../../../components/blog-details/BreadCrumb2";
 import Comments from "../../../../components/blog-details/Comments";
 import Pagination from "../../../../components/blog-details/Pagination";
@@ -20,20 +16,16 @@ import blogs from "../../../../data/blogs";
 import Image from "next/image";
 
 export const metadata = {
-  title: 'Blog Details || Realtors - Realtors React Template',
-  description:
-    'Realtors - Realtors React Template',
-}
+  title: "Blog Details || Realtors - Realtors React Template",
+  description: "Realtors - Realtors React Template",
+};
 
-const BlogDetailsDynamic = ({params}) => {
-  
+const BlogDetailsDynamic = ({ params }) => {
   const id = params.id;
-  const blog = blogs.find((item) => item.id == id) ||  blogs[0]
-
+  const blog = blogs.find((item) => item.id == id) || blogs[0];
 
   return (
     <>
-
       {/* <!-- Main Header Nav --> */}
       <Header />
 

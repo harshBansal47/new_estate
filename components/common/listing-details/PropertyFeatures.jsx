@@ -13,11 +13,7 @@ const PropertyFeatures = () => {
       list: ["Swimming Pool", "TV Cable", "Washer", "WiFi", "Window Coverings"],
     },
   ];
-  return (
-    <>
-     
-    </>
-  );
+  return <></>;
 };
 
 export default PropertyFeatures;
