@@ -12,10 +12,11 @@ const FindProperties = () => {
             className="properti_city style2 d-block"
           >
             <div className="thumb">
-              <Image
-                width={342}
-                height={241}
-                className="img-fluid w100 h-100 cover"
+              <img
+                // width={341}
+                // height={240}
+                style={{ width: "341px", height: "240px" }}
+                className="img-fluid"
                 src={item.img}
                 alt="pc1.jpg"
               />

@@ -7,9 +7,6 @@ import FeatureProperties from "../common/listing/FeatureProperties";
 const Sidebar = () => {
   return (
     <>
-<<<<<<< HEAD
-     
-=======
       <div className="sidebar_listing_list">
         <div className="sidebar_advanced_search_widget">
           <div className="sl_creator">
@@ -44,7 +41,6 @@ const Sidebar = () => {
         <h4 className="title">Recently Viewed</h4>
         <FeaturedListings />
       </div>
->>>>>>> master
       {/* End .Recently Viewed */}
     </>
   );

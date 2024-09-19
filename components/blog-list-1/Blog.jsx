@@ -1,11 +1,11 @@
 import Link from "next/link";
 import blogContent from "../../data/blogs";
 import Image from "next/image";
-
+import BlogDetailsDynamic from "@/app/blogs/blog-details/[id]/page";
 const Blog = () => {
   return (
     <>
-      {blogContent.slice(6, 9).map((item) => (
+      {blogContent.slice(3, 9).map((item) => (
         <div className="for_blog feat_property" key={item.id}>
           <div className="thumb">
             <Link href={`/blog-details/${item.id}`}>

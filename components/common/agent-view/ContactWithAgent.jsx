@@ -1,8 +1,5 @@
 const ContactWithAgent = () => {
   return (
-<<<<<<< HEAD
-    <></>
-=======
     <form action="#">
       <ul className="sasw_list mb0">
         <li className="search_area">
@@ -61,7 +58,6 @@ const ContactWithAgent = () => {
         {/* End li */}
       </ul>
     </form>
->>>>>>> master
   );
 };
 
