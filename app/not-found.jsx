@@ -2,8 +2,8 @@ import dynamic from "next/dynamic";
 import NotFound from "../components/404";
 
 export const metadata = {
-  title: "404 Not Found || Prop Trade Real Estate",
-  description: "Real Estate",
+  title: "404 Not Found || Prop Trade Realtors",
+  description: "Realtors",
 };
 
 const index = () => {

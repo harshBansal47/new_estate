@@ -2,15 +2,9 @@ import dynamic from "next/dynamic";
 import MyDashboard from "@/components/dashboard/my-dashboard";
 
 export const metadata = {
-<<<<<<< HEAD
-  title: 'Dashboard ||Prop Trade Real Estate',
+  title: 'Dashboard ||Prop Trade Realtors',
   description:
-    'Prop Trade Real Estate',
-=======
-  title: 'Dashboard || FindHouse - Real Estate React Template',
-  description:
-    'FindHouse - Real Estate React Template',
->>>>>>> master
+    'Prop Trade Realtors',
 }
 
 

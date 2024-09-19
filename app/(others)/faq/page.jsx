@@ -2,9 +2,9 @@ import dynamic from "next/dynamic";
 import Faq from "@/components/faq";
 
 export const metadata = {
-  title: 'Faq || FindHouse - Real Estate React Template',
+  title: 'Faq || Realtors - Realtors React Template',
   description:
-    'FindHouse - Real Estate React Template',
+    'Realtors - Realtors React Template',
 }
 
 const index = () => {

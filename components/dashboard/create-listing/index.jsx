@@ -27,7 +27,6 @@ const index = () => {
   const { username, isLoggedIn, role } = useSelector((state) => state.login);
 
   // State variables for form fields
-  const [marker, setMarker] = useState(null);
   const [propertyTitle, setPropertyTitle] = useState("");
   const [propertyDescription, setPropertyDescription] = useState("");
   const [propertyType, setPropertyType] = useState("Commercial"); // Default to first value
@@ -37,18 +36,14 @@ const index = () => {
   const [propertyLocality, setPropertyLocality] = useState("");
   const [propertyCity, setPropertyCity] = useState("");
   const [propertyZip, setPropertyZip] = useState("");
+  const [marker, setMarker] = useState(null);
   const [reraId, setReraId] = useState("");
   const [builderName, setBuilderName] = useState("");
-  const [planPrice, setPlanPrice] = useState("");
-  const [planSize, setPlanSize] = useState("");
-  const [planDescription, setPlanDescription] = useState("");
+  const [highlights, setHighlights] = useState([]);
   const [brochure, setBrochure] = useState(null);
-  const [imageUpload, setImageUpload] = useState(null);
   const [brandImage, setBrandImage] = useState(null);
   const [siteImages, setSiteImages] = useState([]);
-  const [highlights, setHighlights] = useState([]);
   const [inputValue, setInputValue] = useState("");
-
   const [sitePlans, setSitePlans] = useState([
     {
       planPrice: "",
@@ -145,19 +140,6 @@ const index = () => {
     }
   };
 
-  const convertToBase64 = (file) => {
-    return new Promise((resolve, reject) => {
-      const fileReader = new FileReader();
-      fileReader.readAsDataURL(file);
-      fileReader.onload = () => {
-        resolve(fileReader.result);
-      };
-      fileReader.onerror = (error) => {
-        reject(error);
-      };
-    });
-  };
-
   const handleFileChange = (e, index = null) => {
     const { files, id } = e.target;
     const selectedFiles = Array.from(files);
@@ -225,47 +207,58 @@ const index = () => {
       return;
     }
 
-    // Prepare the JSON payload
-    const jsonPayload = {
-      propertyTitle,
-      propertyDescription,
-      propertyType,
-      propertyStatus,
-      propertyPrice: propertyPrice.replace(/,/g, ""),
-      propertyArea,
-      propertyLocality,
-      propertyCity,
-      propertyZip,
-      reraId,
-      builderName,
-      locationMap: {
-        latitude: marker ? marker.lat : "",
-        longitude: marker ? marker.lng : "",
-      },
-      amenities: Object.keys(amenities).filter((key) => amenities[key]),
-      highlights,
-      sitePlans: await Promise.all(
-        sitePlans.map(async (plan) => ({
-          ...plan,
-          imageUpload: plan.imageUpload
-            ? await convertToBase64(plan.imageUpload)
-            : null,
-        }))
-      ),
-      brandImage: brandImage ? await convertToBase64(brandImage) : null,
-      siteImages: await Promise.all(
-        siteImages.map((file) => convertToBase64(file))
-      ),
-      brochure: brochure ? await convertToBase64(brochure) : null,
-    };
+    // Prepare FormData payload
+    const formData = new FormData();
+    formData.append("propertyTitle", propertyTitle);
+    formData.append("propertyDescription", propertyDescription);
+    formData.append("propertyType", propertyType);
+    formData.append("propertyStatus", propertyStatus);
+    formData.append("propertyPrice", propertyPrice.replace(/,/g, ""));
+    formData.append("propertyArea", propertyArea);
+    formData.append("propertyLocality", propertyLocality);
+    formData.append("propertyCity", propertyCity);
+    formData.append("propertyZip", propertyZip);
+    formData.append("reraId", reraId);
+    formData.append("builderName", builderName);
+    // Append locationMap if marker exists
+    if (marker) {
+      formData.append("latitude", marker.lat);
+      formData.append("longitude", marker.lng);
+    }
+
+    // Append amenities
+    formData.append(
+      "amenities",
+      Object.keys(amenities).filter((key) => amenities[key])
+    );
+    // Append highlights
+    formData.append(`highlights`, highlights);
+
+    if (sitePlans.length > 0) {
+      formData.append("siteplans", sitePlans);
+    }
+
+    // Append brand image if it exists
+    if (brandImage) {
+      const image = await brandImage;
+      formData.append("brandImage", image);
+    }
+
+    // Append site images
+    if (siteImages.length > 0) {
+      formData.append("siteImages", siteImages);
+    }
+
+    // Append brochure if it exists
+    if (brochure) {
+      const brochureFile = await brochure;
+      formData.append("brochure", brochureFile);
+    }
 
     try {
       const response = await fetch("/api/properties", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(jsonPayload),
+        body: formData, // No need for headers, as FormData sets its own content type
       });
 
       if (!response.ok) {
@@ -870,7 +863,6 @@ const index = () => {
                         </div>
                       ))}
                     </div>
-
                     <div className="my_dashboard_review mt30">
                       <div className="row">
                         <div className="col-lg-12">
@@ -885,20 +877,8 @@ const index = () => {
                     </div>
                   </form>
                 </div>
-                {/* End .col */}
               </div>
-              {/* End .row */}
-
-              <div className="row mt50">
-                <div className="col-lg-12">
-                  <div className="copyright-widget text-center">
-                    <p>© 2020 Find House. Made with love.</p>
-                  </div>
-                </div>
-              </div>
-              {/* End .row */}
             </div>
-            {/* End .col */}
           </div>
         </div>
       </section>
