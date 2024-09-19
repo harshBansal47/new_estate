@@ -253,7 +253,7 @@ const index = () => {
 
     // Append site images
     if(siteImages.length>0){
-      siteImages.forEach((image,index)=>formData.append(`siteImages[${index}]]`,image));
+      siteImages.forEach((image, index) => formData.append(`siteImages[${index}]`, image));
     }
 
     // Append brochure if it exists

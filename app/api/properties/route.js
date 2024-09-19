@@ -7,17 +7,13 @@ export async function POST(request){
         const serverurl = process.env.Backend_URL;
         const createPropertyUrl = "api/property/create";
         const formData = await request.formData();
-
         const expressResponse = await fetch(`${serverurl}${createPropertyUrl}`, {
           method: 'POST',
           body:formData,
-          headers: {
-            'Content-Type': 'application/json'
-          },
         });
 
         if (!expressResponse.ok) {
-                    throw new Error(`Error from backend server: ${expressResponse.statusText}`);
+            throw new Error(`Error from backend server: ${expressResponse.statusText}`);
           }
           
              // Get the JSON response from Express
