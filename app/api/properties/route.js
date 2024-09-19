@@ -1,7 +1,7 @@
+import { revalidatePath } from "next/cache";
+import { NextRequest,NextResponse } from "next/server";
 
-
-
-export async function POST(request){
+export async function POST(request,response){
   
     try {
         const serverurl = process.env.Backend_URL;
@@ -18,6 +18,7 @@ export async function POST(request){
           
              // Get the JSON response from Express
         const data = await expressResponse.json();
+        revalidatePath('/', 'layout')
 
         // Send the data back to the client
         return new Response(JSON.stringify(data), {
