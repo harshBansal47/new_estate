@@ -1,27 +1,24 @@
+import { revalidatePath } from "next/cache";
+import { NextRequest,NextResponse } from "next/server";
 
-
-
-export async function POST(request){
+export async function POST(request,response){
   
     try {
         const serverurl = process.env.Backend_URL;
         const createPropertyUrl = "api/property/create";
         const formData = await request.formData();
-
         const expressResponse = await fetch(`${serverurl}${createPropertyUrl}`, {
           method: 'POST',
           body:formData,
-          headers: {
-            'Content-Type': 'application/json'
-          },
         });
 
         if (!expressResponse.ok) {
-                    throw new Error(`Error from backend server: ${expressResponse.statusText}`);
+            throw new Error(`Error from backend server: ${expressResponse.statusText}`);
           }
           
              // Get the JSON response from Express
         const data = await expressResponse.json();
+        revalidatePath('/', 'layout')
 
         // Send the data back to the client
         return new Response(JSON.stringify(data), {

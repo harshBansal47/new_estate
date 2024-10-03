@@ -1,3 +1,5 @@
+import { revalidatePath } from "next/cache";
+
 export async function GET(req,res) {
     try {
       // Environment variables and endpoint
@@ -9,11 +11,12 @@ export async function GET(req,res) {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-          // Add other headers as needed
         }
       },{cache:'no-store'});
       // Make the fetch request using the Request object
       const fetchResponse = await response.json();
+
+      revalidatePath('/', 'layout')
   
       // Check if the request was successful
       if (!response.ok) {

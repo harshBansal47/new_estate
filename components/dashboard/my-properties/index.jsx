@@ -4,7 +4,7 @@ import Header from "../../common/header/dashboard/Header";
 import SidebarMenu from "../../common/header/dashboard/SidebarMenu";
 import MobileMenu from "../../common/header/MobileMenu";
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import { useState, useEffect, cache } from "react";
 
 const index = () => {
   const theadContent = [
@@ -16,6 +16,7 @@ const index = () => {
 
   const [properties, setProperties] = useState([]);
 
+  const absolute_url = process.env.BACKEND_URL||"http://localhost:3002/";
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -24,7 +25,7 @@ const index = () => {
           headers: {
             'Content-Type': 'application/json'
           }
-        });
+        },{cache:'no-store'});
         const data = await response.json();
         if (data.status === "success") {
           setProperties(data.data);
@@ -42,37 +43,38 @@ const index = () => {
   const handlePropEdit = (id) => {
 
   }
-  // const handlePropDelete = async (id) => {
-  //   // Confirm before deleting
+  const handlePropDelete = async (id) => {
+    // Confirm before deleting
 
 
-  //   try {
-  //     // Construct the URL properly using template literals to include the `id`
-  //     const response = await fetch(`/api/properties/delete/${id}`, {
-  //       method: 'DELETE', // Using the DELETE method
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //         // Include other headers as needed, e.g., Authorization for secure endpoints
-  //       }
-  //     });
+    try {
+      // Construct the URL properly using template literals to include the `id`
+     
+      const response = await fetch(`/api/properties/Delete/${id}`, {
+        method: 'DELETE', // Using the DELETE method
+        headers: {
+          'Content-Type': 'application/json',
+          // Include other headers as needed, e.g., Authorization for secure endpoints
+        }
+      });
 
-  //     const data = await response.json(); // Assuming the server responds with JSON
+      const data = await response.json(); // Assuming the server responds with JSON
 
-  //     if (!response.ok) {
-  //       // If the server responds with an error status, throw an error to handle it
-  //       throw new Error(data.message || 'Failed to delete the property');
-  //     }
+      if (!response.ok) {
+        // If the server responds with an error status, throw an error to handle it
+        throw new Error(data.message || 'Failed to delete the property');
+      }
 
-  //     // Here, handle UI update or state management logic upon successful deletion
-  //     alert('Property deleted successfully');
-  //     // Example: if you're managing state with React, you might want to filter out the deleted property
-  //     // setProperties(prevProperties => prevProperties.filter(property => property.id !== id));
-  //   } catch (error) {
-  //     // Handle any errors that occur during the fetch
-  //     console.error('Failed to delete property:', error);
-  //     alert(`Error: ${error.message}`);
-  //   }
-  // }
+      // Here, handle UI update or state management logic upon successful deletion
+      alert('Property deleted successfully');
+      // Example: if you're managing state with React, you might want to filter out the deleted property
+      // setProperties(prevProperties => prevProperties.filter(property => property.id !== id));
+    } catch (error) {
+      // Handle any errors that occur during the fetch
+      console.error('Failed to delete property:', error);
+      alert(`Error: ${error.message}`);
+    }
+  }
 
 
 
@@ -166,7 +168,7 @@ const index = () => {
                                         width={150}
                                         height={220}
                                         className="img-whp cover"
-                                        src={item.brandImage}
+                                        src={absolute_url+item.brandImage}
                                         alt="fp1.jpg"
                                       />}
 

@@ -234,9 +234,16 @@ const index = () => {
     // Append highlights
     formData.append(`highlights`, highlights);
 
-    if (sitePlans.length > 0) {
-      formData.append("siteplans", sitePlans);
-    }
+    sitePlans.forEach((plan, index) => {
+      formData.append(`sitePlans[${index}][planPrice]`, plan.planPrice);
+      formData.append(`sitePlans[${index}][planSize]`, plan.planSize);
+      formData.append(`sitePlans[${index}][planDescription]`, plan.planDescription);
+  
+      // Append site plan image if it exists
+      if (plan.imageUpload) {
+        formData.append(`sitePlans[${index}][imageUpload]`, plan.imageUpload);
+      }
+    });
 
     // Append brand image if it exists
     if (brandImage) {
@@ -245,8 +252,8 @@ const index = () => {
     }
 
     // Append site images
-    if (siteImages.length > 0) {
-      formData.append("siteImages", siteImages);
+    if(siteImages.length>0){
+      siteImages.forEach((image, index) => formData.append(`siteImages[${index}]`, image));
     }
 
     // Append brochure if it exists
