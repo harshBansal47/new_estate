@@ -44,7 +44,9 @@ const Header = () => {
             src="/assets/images/propLogo.png"
             alt="header-logo2.png"
           />
-          <span>Realtors</span>
+          <span style={{ textTransform: "none" }}>
+            Customer first Realtors'
+          </span>
         </Link>
         {/* site logo brand */}
 
